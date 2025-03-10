@@ -1,0 +1,23 @@
+{
+  "name": "purl-patrol",
+  "version": "1.2.1",
+  "description": "Builds a container image to consume a SBOM, extracts the software licenses and checks them against a policy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaibornWolff/purl-patrol.git"
+  },
+  "author": "MaibornWolff",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/MaibornWolff/purl-patrol/issues"
+  },
+  "homepage": "https://github.com/MaibornWolff/purl-patrol#readme",
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.3",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/github": "^11.0.1",
+    "@semantic-release/exec": "^7.0.3",
+    "conventional-changelog-conventionalcommits": "^8.0.0"
+  }
+}

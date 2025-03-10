@@ -1,0 +1,12 @@
+branch: "main"
+preset: "conventionalcommits"
+plugins:
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/release-notes-generator"
+  - "@semantic-release/changelog"
+  - "@semantic-release/github"
+  - - "@semantic-release/exec"
+    - successCmd: |
+        echo "RELEASE_VERSION=${nextRelease.version}" >> "$GITHUB_OUTPUT"
+        echo "RELEASE_TAG=${nextRelease.gitTag}" >> "$GITHUB_OUTPUT"
+        echo "setting env variables done"

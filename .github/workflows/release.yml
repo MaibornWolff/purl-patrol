@@ -1,0 +1,71 @@
+name: Release PURL Patrol
+run-name: release-purl-patrol
+on:
+  push:
+    branches: [main]
+
+jobs:
+  # test:
+
+  semantic-release:
+    # needs: [test]
+    runs-on: ubuntu-latest
+    name: semantic-release
+    outputs:
+      RELEASE_TAG: ${{ steps.release.outputs.RELEASE_TAG }}
+      RELEASE_VERSION: ${{ steps.release.outputs.RELEASE_VERSION }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - name: Install dependencies
+        run: npm install
+      - name: Release
+        id: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # automatically created by GH action
+        run: npx semantic-release   # npx is included in npm -> Ubuntu
+
+  delivery:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    name: Push to container registry
+    needs: [semantic-release]
+    steps:
+      - name: Checkout Github Repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ needs.semantic-release.outputs.RELEASE_TAG }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/maibornwolff/purl-patrol:latest
+            ghcr.io/maibornwolff/purl-patrol:${{ needs.semantic-release.outputs.RELEASE_VERSION }}
+
+
+      - name: Release Github Action
+        uses: actions/checkout@v4
+      - env:
+          MESSAGE: ${{ github.event.client_payload.message }}
+        run: |
+          echo $MESSAGE

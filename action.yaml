@@ -1,0 +1,22 @@
+name: License Policy Check
+description: 'The SBOM passed to the action is analyzed. If non-compliant licenses are found, the pipeline breaks optionally.'
+inputs:
+  SBOM_PATH:
+    description: 'Path to the SBOM'
+    required: true
+  LICENSE_POLICY_PATH:
+    description: 'Path to a custom license policy in a format compliant with sbom-utility.'
+    required: false
+    default: "/mw_license_policy.json"
+  BREAK_ENABLED:
+    description: 'Boolean value whether to break the pipeline in case of non-compliance.'
+    required: false
+    default: "true"
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    SBOM_PATH: ${{ inputs.SBOM_PATH }}
+    LICENSE_POLICY_PATH: ${{ inputs.LICENSE_POLICY_PATH }}
+    BREAK_ENABLED: ${{ inputs.BREAK_ENABLED }}
