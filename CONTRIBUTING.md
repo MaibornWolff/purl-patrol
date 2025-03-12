@@ -23,10 +23,10 @@ If you encounter a bug, have suggestions for a feature, or notice something that
 
 We welcome pull requests for bug fixes, new features, or documentation improvements. To submit code changes:
 
-1. Fork the repository and clone it locally.
+1. Clone the repository locally.
 2. Create a new branch for your changes.
-3. Please take care of your commit messages as we are using [semantic versioning](https://www.npmjs.com/package/semantic-release).
-4. Install and run pre-commit before creating a PR - this is an automatic branch policy check
+3. Please take care of your commit messages as we are using [semantic versioning](https://www.npmjs.com/package/semantic-release). Commit messages should follow [convential commits](https://www.conventionalcommits.org/en/v1.0.0/).
+4. Install and run [pre-commit](https://pre-commit.com/) before creating a PR - this is an automatic branch policy check
 
 ## Communication
 

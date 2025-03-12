@@ -10,8 +10,3 @@ if [ -z "$SBOM_PATH" ] || [ -z "$LICENSE_POLICY_PATH" ] || [ -z "$BREAK_ENABLED"
 fi
 /sbom/sbom-utility license list --input-file="$SBOM_PATH" --format=csv --summary --config-license="$LICENSE_POLICY_PATH" -o="/sbom/evaluated_sbom.csv"
 python3 /sbom/check_usage_policy.py --pipelinebreak "$BREAK_ENABLED" /sbom/evaluated_sbom.csv
-
-docker run \
-  -e SBOM_PATH=/sbom/your-sbom.json \
-  -v /path/to/sbom.json:/sbom/sbom.json \
-  ghcr.io/maibornwolff/purl-patrol:1.0.0

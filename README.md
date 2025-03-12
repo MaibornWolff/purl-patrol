@@ -34,8 +34,8 @@ PURL Patrol is a tool designed to consume Software Bill of Materials (SBOMs), ex
 
 | Parameter           | Description                                                                                                                   | Required | Default Value          |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------- |
-| `SBOM_PATH`         | The path to your Software Bill of Materials (SBOM) file within the repository.                                             | Yes      | *None*                 |
-| `LICENSE_POLICY_PATH` | The path to the license policy file. This file defines the allowed and disallowed licenses.                                  | No       | `/sbom/mw_license_policy.json` |
+| `SBOM_PATH`         | The path to your Software Bill of Materials (SBOM) file within the docker container.                                             | Yes      | *None*                 |
+| `LICENSE_POLICY_PATH` | The path to the license policy file within the docker container. This file defines the allowed and disallowed licenses.                                  | No       | `/sbom/mw_license_policy.json` |
 | `BREAK_ENABLED`     |  A boolean flag indicating whether the pipeline should fail (exit with an error) if any license non-compliance issues are found. | No       | `true`                |
 
 ### License File
@@ -99,7 +99,7 @@ docker run \
   ghcr.io/maibornwolff/purl-patrol:1.0.0
 ```
 
-Replace `path/to/sbom.json` & `path/to/license_policy.json`with the actual paths to your file
+Replace `path/to/sbom.json` & `path/to/license_policy.json` with the actual paths to your file
 
 ## Contributing
 
