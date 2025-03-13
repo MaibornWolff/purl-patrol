@@ -1,6 +1,9 @@
 #!/bin/sh
 # shellcheck shell=dash
 
+LICENSE_POLICY_PATH="${LICENSE_POLICY_PATH:-/sbom/mw_license_policy.json}"
+BREAK_ENABLED="${BREAK_ENABLED:-true}"
+
 if [ -z "$SBOM_PATH" ] || [ -z "$LICENSE_POLICY_PATH" ] || [ -z "$BREAK_ENABLED" ]; then
   echo "Missing variables in check script. Please check SBOM_PATH or LICENSE_POLICY_PATH or BREAK_ENABLED"
   exit 1
