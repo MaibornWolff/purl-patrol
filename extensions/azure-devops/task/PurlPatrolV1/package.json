@@ -1,0 +1,21 @@
+{
+  "name": "purlpatrolv1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "description": "",
+  "dependencies": {
+    "azure-pipelines-task-lib": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.13.10",
+    "@types/q": "^1.5.8",
+    "sync-request": "^6.1.0"
+  }
+}

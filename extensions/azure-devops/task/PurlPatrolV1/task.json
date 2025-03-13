@@ -1,0 +1,47 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "78c84332-0298-4959-80c3-abff059117dd",
+    "name": "purl-patrol",
+    "friendlyName": "PURL Patrol",
+    "description": "Enhances and checks the licenses of SBOMs against a policy.",
+    "helpMarkDown": "[Learn more about this task](https://github.com/MaibornWolff/purl-patrol)",
+    "category": "Utility",
+    "author": "MaibornWolff GmbH",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 0
+    },
+    "instanceNameFormat": "Purl Patrol",
+    "inputs": [
+        {
+            "name": "SBOMPATH",
+            "type": "string",
+            "label": "Path to the SBOM",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "working-dir/sbom.cdx.json"
+        },
+        {
+            "name": "LICENSEPOLICYPATH",
+            "type": "string",
+            "label": "Path to a custom license policy in a format compliant with sbom-utility.",
+            "defaultValue": "/mw_license_policy.json",
+            "required": false,
+            "helpMarkDown": "/mw_license_policy.json"
+        },
+        {
+            "name": "BREAK",
+            "type": "boolean",
+            "label": "Boolean value whether to break the pipeline in case of non-compliance.",
+            "defaultValue": true,
+            "required": false,
+            "helpMarkDown": "true"
+        }
+    ],
+    "execution": {
+        "Node20_1": {
+            "target": "index.js"
+        }
+    }
+}
