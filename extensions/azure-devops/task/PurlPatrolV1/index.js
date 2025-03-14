@@ -1,49 +1,51 @@
 const tl = require('azure-pipelines-task-lib/task');
 const path = require('path');
 const fs = require('fs');
-const { execSync } = require('child_process');
 
 async function run() {
     try {
         // Get inputs
-        const workingdir = "/workspace/";
+        const workingDir = "/workspace";
+        const licenseDirDocker = "license";
+        const sbomDirDocker = "sbom";
         
-        let sbomPath = tl.getInput('SBOMPATH', true);
+        // let sbomPath = tl.getInput('SBOMPATH', true);
+        let sbomPath = './test_data/secobserve.cdx.json';
         let licensePolicyPath = tl.getInput('LICENSEPOLICYPATH', false);
         let breakOnNonCompliance = tl.getBoolInput('BREAK', false);
-
+        
+        sbomPath = path.resolve(sbomPath);
         // Validate inputs
         if (!fs.existsSync(sbomPath)) {
             throw new Error(`SBOM file not found at path: ${sbomPath}`);
         }
-
-        sbomPath = path.join(workingdir, sbomPath);
-
+        
+        const sbomDir = path.dirname(sbomPath);
+        const sbomFile = path.basename(sbomPath);
+        
         if (!Boolean(breakOnNonCompliance)){
             breakOnNonCompliance = "true";
         }
-
-        const sbomDir = path.dirname(sbomPath);
         
-        let command;
         // TODO: Pin Version of Dockerfile
+        const docker = tl.tool('docker');
+        docker.arg(["run", "--workdir", `${workingDir}`, "--rm"]);
+        docker.arg(["--env", `SBOM_PATH=${path.join(workingDir, sbomDirDocker, sbomFile)}`])
+        docker.arg(["--env", `BREAK_ENABLED="${breakOnNonCompliance}"`])
+        docker.arg(["--volume", `${sbomDir}:${path.join(workingDir, sbomDirDocker)}`])
         if (Boolean(licensePolicyPath)){
-            licensePolicyPath = path.join(workingdir, licensePolicyPath);
+            licensePolicyPath = path.resolve(licensePolicyPath);
             const licenseDir = path.dirname(licensePolicyPath);
-            command = `docker run --rm --workingdir "${workingdir}" -e SBOM_PATH="${sbomPath}" -e BREAK_ENABLED="${breakOnNonCompliance}" -e LICENSE_POLICY_PATH="${licensePolicyPath}" -v "${sbomDir}:${path.join(workingdir, sbomDir)}" -v "${licenseDir}:${licenseDir}" ghcr.io/maibornwolff/purl-patrol:latest`;
-        } else {
-            command = `docker run --rm --workingdir "${workingdir}" -e SBOM_PATH="${sbomPath}" -e BREAK_ENABLED="${breakOnNonCompliance}" -v "${sbomDir}:${path.join(workingdir, sbomDir)}" ghcr.io/maibornwolff/purl-patrol:latest`;
-        }
-
+            const licenseFile = path.basename(licensePolicyPath);
+            docker.arg([`--env LICENSE_POLICY_PATH="${path.join(workingDir, licenseDirDocker, licenseFile)}"`]);
+            docker.arg([`--volume ${licenseDir}:${path.join(workingDir, licenseDirDocker)}`]);
+        } 
+        docker.arg([`ghcr.io/maibornwolff/purl-patrol:latest`])
         
         // Run purl-patrol Docker image
         console.log('Running PURL Patrol...');
-        try {
-            console.log(`Executing command: ${command}`);
-            
-            const output = execSync(command, { encoding: 'utf-8' });
-            console.log(output);
-            
+        try {        
+            await docker.execAsync();
             console.log('PURL Patrol completed successfully');
         } catch (error) {
             if (breakOnNonCompliance) {
