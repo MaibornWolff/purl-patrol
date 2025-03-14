@@ -1,6 +1,5 @@
 const tl = require('azure-pipelines-task-lib/task');
 const path = require('path');
-const fs = require('fs');
 
 async function run() {
     try {
@@ -9,15 +8,18 @@ async function run() {
         const licenseDirDocker = "license";
         const sbomDirDocker = "sbom";
         
-        // let sbomPath = tl.getInput('SBOMPATH', true);
-        let sbomPath = './test_data/secobserve.cdx.json';
+        let sbomPath = tl.getInput('SBOMPATH', true);
+        // let sbomPath = './test_data/secobserve.cdx.json';
         let licensePolicyPath = tl.getInput('LICENSEPOLICYPATH', false);
-        let breakOnNonCompliance = tl.getBoolInput('BREAK', false);
+        let breakOnNonCompliance = tl.getInput('BREAK', false);
         
         sbomPath = path.resolve(sbomPath);
+        
         // Validate inputs
-        if (!fs.existsSync(sbomPath)) {
-            throw new Error(`SBOM file not found at path: ${sbomPath}`);
+        tl.checkPath(sbomPath);
+        if (Boolean(licensePolicyPath)){
+            licensePolicyPath = path.resolve(licensePolicyPath);
+            tl.checkPath(licensePolicyPath)
         }
         
         const sbomDir = path.dirname(sbomPath);
@@ -34,7 +36,6 @@ async function run() {
         docker.arg(["--env", `BREAK_ENABLED="${breakOnNonCompliance}"`])
         docker.arg(["--volume", `${sbomDir}:${path.join(workingDir, sbomDirDocker)}`])
         if (Boolean(licensePolicyPath)){
-            licensePolicyPath = path.resolve(licensePolicyPath);
             const licenseDir = path.dirname(licensePolicyPath);
             const licenseFile = path.basename(licensePolicyPath);
             docker.arg([`--env LICENSE_POLICY_PATH="${path.join(workingDir, licenseDirDocker, licenseFile)}"`]);
