@@ -1,5 +1,6 @@
-const tl = require('azure-pipelines-task-lib/task');
-const path = require('path');
+import * as tl from 'azure-pipelines-task-lib/task';
+import * as path from 'path';
+// const path = require('path');
 
 // TODO: dependencies in dist
 

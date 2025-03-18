@@ -2,25 +2,36 @@ import ma = require('azure-pipelines-task-lib/mock-answer');
 import tmrm = require('azure-pipelines-task-lib/mock-run');
 import path = require('path');
 
-let taskPath = path.join('./dist/', 'index.js');
-let tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
+let taskPath = path.join(__dirname, '..', '/index.js');
 
-tmr.setInput('SBOMPATH', './test_data/secobserve.cdx.json');
+let sbomDir: string;
+sbomDir = "./test_data/secobserve.cdx.json";
+
+let tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
+tmr.setInput('SBOMPATH', sbomDir);
 tmr.setInput('BREAK', 'true');
 
-tmr.registerMock('azure-pipelines-task-lib/task', {
-    checkPath: function(p: string) {
-        return;
-    },
-    tool: function(tool: string) {
-        return {
-            arg: function(args: string[]) { return this; },
-            execAsync: function() { return Promise.resolve(0); }
-        };
-    },
-    setResult: function(result: any, message: string) {
-        console.log('Task result: ' + result);
-    }
+// we do not want the absolute path since this is used in the volume of the docker run cmd below
+tmr.registerMock('path', {
+    resolve: (p: string) => p,
+    dirname: (p: string) => path.dirname(p),
+    basename: (p: string) => path.basename(p),
+    join: (...paths: string[]) => path.join(...paths),
 });
 
+// we need to mock the external requests to the task runner of Azure 
+const a: ma.TaskLibAnswers = {
+    checkPath: {
+        [sbomDir]: true
+    },
+    exec: {
+        'docker run --workdir /workspace --rm --env SBOM_PATH=/workspace/sbom/secobserve.cdx.json --env BREAK_ENABLED="true" --volume ./test_data:/workspace/sbom ghcr.io/maibornwolff/purl-patrol:latest': {
+            "code": 0,
+            "stderr": "no error",
+            "stdout": "we do not give a fOck"
+        }
+    }
+}
+
+tmr.setAnswers(a);
 tmr.run();
