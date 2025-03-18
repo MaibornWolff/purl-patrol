@@ -2,20 +2,26 @@
   "name": "purlpatrolv1",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "pretest": "npm run build",
+    "test": "node --require ts-node/register --import tsx --test **/*.test.ts"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "description": "",
-  "dependencies": {
-    "azure-pipelines-task-lib": "^5.0.0"
-  },
   "devDependencies": {
-    "@types/mocha": "^10.0.10",
     "@types/node": "^22.13.10",
     "@types/q": "^1.5.8",
-    "sync-request": "^6.1.0"
+    "azure-pipelines-task-lib": "^5.0.0",
+    "sync-request": "^6.1.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
   }
 }

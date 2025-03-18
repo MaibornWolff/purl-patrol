@@ -1,6 +1,8 @@
 const tl = require('azure-pipelines-task-lib/task');
 const path = require('path');
 
+// TODO: dependencies in dist
+
 async function run() {
     try {
         // Get inputs
