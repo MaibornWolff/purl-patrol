@@ -1,0 +1,29 @@
+name: "Test GitHub Action"
+run-name: test-github-action
+env:
+  SBOM_FILE: "./tests/files/sbom.cdx.json"
+  LICENSE_POLICY_OUTPUT: "evaluation_result.txt"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "feat/github-action-release"
+
+jobs:
+  analyze-sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Run Evaluation Action
+        uses: ./
+        id: analyze-sbom
+        with:
+          SBOM_PATH: ${{ env.SBOM_FILE }}
+          LICENSE_POLICY_PATH: "/tools/license-policy-check/mw_license_policy.json"
+      - name: Upload SBOM evaluation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluated_sbom
+          path: ${{ github.workspace }}/evaluated_sbom.csv
+          if-no-files-found: error
