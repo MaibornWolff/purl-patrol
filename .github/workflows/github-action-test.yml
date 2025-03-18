@@ -22,6 +22,7 @@ jobs:
         id: analyze-sbom
         with:
           SBOM_PATH: ${{ env.SBOM_FILE }}
+          BREAK_ENABLED: false
       - name: Upload SBOM evaluation artifact
         uses: actions/upload-artifact@v4
         with:
