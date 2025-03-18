@@ -1,7 +1,7 @@
 name: "Test GitHub Action"
 run-name: test-github-action
 env:
-  SBOM_FILE: "./tests/files/sbom.cdx.json"
+  SBOM_FILE: "./tests/files/sbom_secObserve.cdx.json"
   LICENSE_POLICY_OUTPUT: "evaluation_result.txt"
 on:
   workflow_dispatch:
@@ -20,7 +20,6 @@ jobs:
         id: analyze-sbom
         with:
           SBOM_PATH: ${{ env.SBOM_FILE }}
-          LICENSE_POLICY_PATH: "/tools/license-policy-check/mw_license_policy.json"
       - name: Upload SBOM evaluation artifact
         uses: actions/upload-artifact@v4
         with:
