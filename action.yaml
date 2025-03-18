@@ -7,11 +7,9 @@ inputs:
   LICENSE_POLICY_PATH:
     description: 'Path to a custom license policy in a format compliant with sbom-utility.'
     required: false
-    default: "/mw_license_policy.json"
   BREAK_ENABLED:
     description: 'Boolean value whether to break the pipeline in case of non-compliance.'
     required: false
-    default: "true"
 
 runs:
   using: 'docker'
