@@ -9,4 +9,7 @@ if [ -z "$SBOM_PATH" ] || [ -z "$LICENSE_POLICY_PATH" ] || [ -z "$BREAK_ENABLED"
   exit 1
 fi
 /sbom/sbom-utility license list --input-file="$SBOM_PATH" --format=csv --summary --config-license="$LICENSE_POLICY_PATH" -o="evaluated_sbom.csv"
-python3 /sbom/check_usage_policy.py --pipelinebreak "$BREAK_ENABLED" /github/workspace/evaluated_sbom.csv
+ls /
+ls /sbom
+ls /github/workspace
+python3 /sbom/check_usage_policy.py --pipelinebreak "$BREAK_ENABLED" /evaluated_sbom.csv
