@@ -6,11 +6,13 @@ import * as path from 'path';
 
 async function run() {
     try {
-        // Get inputs
         const workingDir = "/workspace";
+        // the directories must be separated in case the user has the license 
+        // and sbom in the same directory
         const licenseDirDocker = "license";
         const sbomDirDocker = "sbom";
         
+        // Get inputs
         let sbomPath = tl.getInput('SBOMPATH', true);
         // let sbomPath = './test_data/secobserve.cdx.json';
         let licensePolicyPath = tl.getInput('LICENSEPOLICYPATH', false);
@@ -51,10 +53,10 @@ async function run() {
             await docker.execAsync();
             console.log('PURL Patrol completed successfully');
         } catch (error) {
-            if (breakOnNonCompliance) {
-                throw new Error(`PURL Patrol found compliance issues: ${error.message}`);
+            if (breakOnNonCompliance=="true") {
+                throw new Error(`PURL Patrol execution failed: ${error.stderr}`);
             } else {
-                console.log(`PURL Patrol found compliance issues, but continuing as BREAK=false: ${error.message}`);
+                console.log(`PURL Patrol execution failed, but continuing as BREAK=false: ${error.stderr}`);
             }
         }
         
