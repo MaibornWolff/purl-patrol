@@ -1,7 +1,7 @@
 {
   "name": "purlpatrolv1",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "type": "commonjs",
   "exports": {
     ".": "./dist/index.js"
