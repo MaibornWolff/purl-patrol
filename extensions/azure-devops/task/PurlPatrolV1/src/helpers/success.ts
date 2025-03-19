@@ -25,10 +25,10 @@ const a: ma.TaskLibAnswers = {
         [sbomDir]: true
     },
     exec: {
-        'docker run --workdir /workspace --rm --env SBOM_PATH=/workspace/sbom/secobserve.cdx.json --env BREAK_ENABLED="true" --volume ./test_data:/workspace/sbom ghcr.io/maibornwolff/purl-patrol:latest': {
+        'docker run --workdir /workspace/sbom --rm --env SBOM_PATH=/workspace/sbom/secobserve.cdx.json --env BREAK_ENABLED=true --volume ./test_data:/workspace/sbom ghcr.io/maibornwolff/purl-patrol:latest': {
             "code": 0,
             "stderr": "no error",
-            "stdout": "we do not give a fOck"
+            "stdout": "Docker ran successfully"
         }
     }
 }

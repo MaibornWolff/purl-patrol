@@ -13,13 +13,18 @@ describe('loading the pipeline task successfully with all inputs', function () {
 
     it("should run successfully", {timeout:5000}, async() => {
         await tr.runAsync();
-        const stderr = tr.stderr;
-        const stdout = tr.stdout;
-        assert.equal(stdout, "foo")
-        // add additional assert 
-        
-        // assert.equal(tr.succeeded, true, 'should have succeeded');
-        // assert.equal(stdout, "foo")
+        // const stderr = tr.stderr;
+        // console.log(stderr)
+        // const stdout = tr.stdout;
+        // console.log(stdout)
+        // assert.equal(stdout, "foo");
+        assert.equal(tr.succeeded, true, 'The task should have succeeded');
+        assert.equal(tr.stdout.includes("Docker ran successfully"), true, 'Should have contained the string "Docker ran successfully' )
+        assert.equal(tr.errorIssues.length, 0, "should have no errors");
+        assert.equal(tr.warningIssues.length, 0, "should have no warnings");
+        assert.equal(tr.stdout.indexOf('Running PURL Patrol...') >= 0, true, "should display Running PURL Patrol...");
+        assert.equal(tr.stdout.indexOf('PURL Patrol completed successfully') >= 0, true, "should display PURL Patrol completed successfully");
+    
     });
 });
 
