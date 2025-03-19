@@ -27,16 +27,15 @@ async function run() {
         
         const sbomDir = path.dirname(sbomPath);
         const sbomFile = path.basename(sbomPath);
-        
         if (!Boolean(breakOnNonCompliance)){
             breakOnNonCompliance = "true";
         }
         
         // TODO: Pin Version of Dockerfile
         const docker = tl.tool('docker');
-        docker.arg(["run", "--workdir", `${workingDir}`, "--rm"]);
+        docker.arg(["run", "--workdir", `${path.join(workingDir, sbomDirDocker)}`, "--rm"]);
         docker.arg(["--env", `SBOM_PATH=${path.join(workingDir, sbomDirDocker, sbomFile)}`])
-        docker.arg(["--env", `BREAK_ENABLED="${breakOnNonCompliance}"`])
+        docker.arg(["--env", `BREAK_ENABLED=${breakOnNonCompliance}`])
         docker.arg(["--volume", `${sbomDir}:${path.join(workingDir, sbomDirDocker)}`])
         if (Boolean(licensePolicyPath)){
             const licenseDir = path.dirname(licensePolicyPath);
