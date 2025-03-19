@@ -5,10 +5,11 @@ import path = require('path');
 let taskPath = path.join(__dirname, '..', '/index.js');
 
 let sbomDir: string;
-sbomDir = "./test_data/secobserve.cdx.json";
+sbomDir = "./invalid/path/secobserve.cdx.json";
 
 let tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
 tmr.setInput('SBOMPATH', sbomDir);
+tmr.setInput('BREAK', 'true');
 
 // we do not want the absolute path since this is used in the volume of the docker run cmd below
 tmr.registerMock('path', {
@@ -21,12 +22,12 @@ tmr.registerMock('path', {
 // we need to mock the external requests to the task runner of Azure 
 const a: ma.TaskLibAnswers = {
     checkPath: {
-        [sbomDir]: true
+        [sbomDir]: false
     },
     exec: {
         'docker run --workdir /workspace/sbom --rm --env SBOM_PATH=/workspace/sbom/secobserve.cdx.json --env BREAK_ENABLED=true --volume ./test_data:/workspace/sbom ghcr.io/maibornwolff/purl-patrol:latest': {
             "code": 0,
-            "stderr": "no error",
+            // "stderr": "no error",
             "stdout": "Docker ran successfully"
         }
     }

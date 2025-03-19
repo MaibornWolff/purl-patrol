@@ -6,13 +6,19 @@ import {describe, it} from 'node:test';
 
 
 const dirname = "./dist/helpers/"
-describe('loading the pipeline task successfully with only required inputs', function () {
+describe('loading the pipeline task successfully with all inputs', function () {
     let tr: ttm.MockTestRunner;
-    let tp = path.join(dirname, 'success.js');
+    let tp = path.join(dirname, 'success-all-inputs.js');
     tr = new ttm.MockTestRunner(tp); 
 
     it("should run successfully", {timeout:5000}, async() => {
         await tr.runAsync();
+        // const stderr = tr.stderr;
+        // console.log(stderr)
+        // const stdout = tr.stdout;
+        // console.log(stdout)
+        // console.log(tr.errorIssues)
+        // console.log(tr.warningIssues)
         assert.equal(tr.succeeded, true, 'The task should have succeeded');
         assert.equal(tr.stdout.includes("Docker ran successfully"), true, 'Should have contained the string "Docker ran successfully' )
         assert.equal(tr.errorIssues.length, 0, "should have no errors");
