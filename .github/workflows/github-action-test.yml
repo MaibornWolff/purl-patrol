@@ -14,9 +14,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      - name: Fix Permissions
-        run: |
-          sudo chown -R 2000 /home/runner/work/purl-patrol/purl-patrol
       - name: Run Evaluation Action
         uses: ./
         id: analyze-sbom

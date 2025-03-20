@@ -8,10 +8,8 @@ RUN echo "$BUILDPLATFORM" && wget -q \
   -O sbom-utility.tar.gz \
   && tar -xvzf sbom-utility.tar.gz
 
-
 FROM python:3.12-alpine
-RUN adduser --disabled-password --gecos '' --uid 2000 -h /sbom sbom \
-  && apk add gcompat=~1.1 --no-cache \
+RUN apk add gcompat=~1.1 --no-cache \
   && apk add sudo=~1.9 --no-cache \
   && pip3 --no-cache-dir install tabulate==0.9.0 \
   && rm -rf /var/cache/apk/*
@@ -19,5 +17,4 @@ COPY tools/license-policy-check/analyze_and_check_sbom.sh tools/license-policy-c
 COPY --from=base /sbom-utility /sbom
 RUN chmod +x /sbom/analyze_and_check_sbom.sh \
   && chmod +x ./sbom/sbom-utility
-USER sbom
 ENTRYPOINT [ "sh", "-c", "/sbom/analyze_and_check_sbom.sh"]
