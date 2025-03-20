@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Fix Permissions
         run: |
-          sudo chown -R 2000 /github/workspace
+          sudo chown -R 2000 /home/runner/work/purl-patrol/purl-patrol
       - name: Run Evaluation Action
         uses: ./
         id: analyze-sbom
