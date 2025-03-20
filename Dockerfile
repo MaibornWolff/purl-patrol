@@ -10,7 +10,7 @@ RUN echo "$BUILDPLATFORM" && wget -q \
 
 
 FROM python:3.12-alpine
-RUN adduser --disabled-password --gecos '' -h /sbom sbom \
+RUN adduser --disabled-password --gecos '' --uid 2000 -h /sbom sbom \
   && apk add gcompat=~1.1 --no-cache \
   && apk add sudo=~1.9 --no-cache \
   && pip3 --no-cache-dir install tabulate==0.9.0 \
