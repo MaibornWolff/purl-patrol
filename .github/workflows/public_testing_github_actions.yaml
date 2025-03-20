@@ -4,6 +4,7 @@ env:
   SBOM_PATH: "./tests/files/sbom_secObserve.cdx.json"
   LICENSE_POLICY_PATH: "./tools/license_policy.json/mw_license_policy.json"
 on:
+  workflow_dispatch:
   release:
     types:
       - published
