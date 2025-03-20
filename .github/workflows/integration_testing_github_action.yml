@@ -3,7 +3,7 @@ run-name: test-github-action
 env:
   SBOM_FILE: "./tests/files/sbom_secObserve.cdx.json"
 on:
-  workflow_dispatch:
+  workflow_call:
   # push:
   #   branches:
   #     - "feat/github-action-release"
