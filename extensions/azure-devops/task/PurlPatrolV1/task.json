@@ -6,6 +6,10 @@
     "description": "Enhances and checks the licenses of SBOMs against a policy.",
     "helpMarkDown": "[Learn more about this task](https://github.com/MaibornWolff/purl-patrol)",
     "category": "Utility",
+    "visibility": [
+        "Build",
+        "Release"
+    ],
     "author": "MaibornWolff GmbH",
     "version": {
         "Major": 0,
