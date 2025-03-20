@@ -61,11 +61,3 @@ jobs:
           tags: |
             ghcr.io/maibornwolff/purl-patrol:latest
             ghcr.io/maibornwolff/purl-patrol:${{ needs.semantic-release.outputs.RELEASE_VERSION }}
-
-
-      - name: Release Github Action
-        uses: actions/checkout@v4
-      - env:
-          MESSAGE: ${{ github.event.client_payload.message }}
-        run: |
-          echo $MESSAGE

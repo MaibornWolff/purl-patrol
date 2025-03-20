@@ -38,3 +38,6 @@ jobs:
           push: true
           tags: |
             "ghcr.io/maibornwolff/purl-patrol:${{ env.BRANCH_NAME }}-${{ env.COMMIT_HASH }}"
+
+  call-github-action:
+    uses: ./.github/workflows/integration_testing_github_action.yml

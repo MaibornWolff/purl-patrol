@@ -4,9 +4,9 @@ env:
   SBOM_FILE: "./tests/files/sbom_secObserve.cdx.json"
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "feat/github-action-release"
+  # push:
+  #   branches:
+  #     - "feat/github-action-release"
 
 jobs:
   analyze-sbom:
