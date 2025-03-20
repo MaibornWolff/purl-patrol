@@ -12,4 +12,4 @@ fi
 ls /
 ls /sbom
 ls /github/workspace
-python3 /sbom/check_usage_policy.py --pipelinebreak "$BREAK_ENABLED" /evaluated_sbom.csv
+python3 /sbom/check_usage_policy.py --pipelinebreak "$BREAK_ENABLED" evaluated_sbom.csv
