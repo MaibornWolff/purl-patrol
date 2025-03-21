@@ -23,5 +23,10 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "azure-pipelines-task-lib": "^5.0.0",
+    "path": "^0.12.7",
+    "typescript": "^5.8.2"
   }
 }

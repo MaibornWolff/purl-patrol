@@ -1,4 +1,4 @@
-import * as tl from 'azure-pipelines-task-lib';
+import * as tl from 'azure-pipelines-task-lib/task';
 import * as path from 'path';
 // const path = require('path');
 
