@@ -7,6 +7,11 @@
     "description": "An Azure DevOps extension for enhancing and checking the licenses of SBOMs against a policy.",
     "tags": ["SBOM", "policy", "PURL", "evaluation", "license"],
     "public": false,
+    "main": "./dist/index.js",
+    "scripts": {
+        "vscode:prepublish": "npm run build",
+        "build": "tsc"
+    },
     "categories": ["Azure Pipelines"],
     "content": {
         "details": {
