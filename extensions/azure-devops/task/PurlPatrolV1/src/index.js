@@ -22,14 +22,16 @@ async function run() {
         
         // Validate inputs
         tl.checkPath(sbomPath);
-        if (Boolean(licensePolicyPath)){
+
+        if (typeof licensePolicyPath !== "undefined") {
             licensePolicyPath = path.resolve(licensePolicyPath);
             tl.checkPath(licensePolicyPath)
         }
-        
+    
         const sbomDir = path.dirname(sbomPath);
         const sbomFile = path.basename(sbomPath);
-        if (!Boolean(breakOnNonCompliance)){
+        
+        if (typeof breakOnNonCompliance === "undefined") {
             breakOnNonCompliance = "true";
         }
         
