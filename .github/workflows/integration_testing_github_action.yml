@@ -4,9 +4,6 @@ env:
   SBOM_FILE: "./tests/files/sbom_secObserve.cdx.json"
 on:
   workflow_call:
-  # push:
-  #   branches:
-  #     - "feat/github-action-release"
 
 jobs:
   analyze-sbom:
@@ -14,12 +11,19 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      - name: Run Evaluation Action
+      - name: Test Action Default License
         uses: ./
-        id: analyze-sbom
+        id: analyze-sbom-default-license
         with:
           SBOM_PATH: ${{ env.SBOM_FILE }}
           BREAK_ENABLED: false
+      - name: Test Action External License
+        uses: ./
+        id: analyze-sbom-external-license
+        with:
+          SBOM_PATH: ${{ env.SBOM_FILE }}
+          BREAK_ENABLED: false
+          LICENSE_POLICY_PATH: "./tests/files/license_policy.json"
       - name: Upload SBOM evaluation artifact
         uses: actions/upload-artifact@v4
         with:
