@@ -13,7 +13,7 @@ async function run() {
         const sbomDirDocker = "sbom";
         
         // Get inputs
-        let sbomPath = tl.getInput('SBOMPATH', true);
+        let sbomPath = tl.getInput('SBOMPATH', true) || "";
         // let sbomPath = './test_data/secobserve.cdx.json';
         let licensePolicyPath = tl.getInput('LICENSEPOLICYPATH', false);
         let breakOnNonCompliance = tl.getInput('BREAK', false);
@@ -21,11 +21,11 @@ async function run() {
         sbomPath = path.resolve(sbomPath);
         
         // Validate inputs
-        tl.checkPath(sbomPath);
+        tl.checkPath(sbomPath, "sbompath");
 
         if (typeof licensePolicyPath !== "undefined") {
             licensePolicyPath = path.resolve(licensePolicyPath);
-            tl.checkPath(licensePolicyPath)
+            tl.checkPath(licensePolicyPath, "licensepolicypath")
         }
     
         const sbomDir = path.dirname(sbomPath);
@@ -41,7 +41,7 @@ async function run() {
         docker.arg(["--env", `SBOM_PATH=${path.join(workingDir, sbomDirDocker, sbomFile)}`])
         docker.arg(["--env", `BREAK_ENABLED=${breakOnNonCompliance}`])
         docker.arg(["--volume", `${sbomDir}:${path.join(workingDir, sbomDirDocker)}`])
-        if (Boolean(licensePolicyPath)){
+        if (typeof licensePolicyPath !== "undefined"){
             const licenseDir = path.dirname(licensePolicyPath);
             const licenseFile = path.basename(licensePolicyPath);
             docker.arg([`--env LICENSE_POLICY_PATH="${path.join(workingDir, licenseDirDocker, licenseFile)}"`]);
@@ -55,15 +55,17 @@ async function run() {
             await docker.execAsync();
             console.log('PURL Patrol completed successfully');
         } catch (error) {
+            const err = error as { stderr?: string }
             if (breakOnNonCompliance=="true") {
-                throw new Error(`PURL Patrol execution failed: ${error.stderr}`);
+                throw new Error(`PURL Patrol execution failed: ${err.stderr}`);
             } else {
-                console.log(`PURL Patrol execution failed, but continuing as BREAK=false: ${error.stderr}`);
+                console.log(`PURL Patrol execution failed, but continuing as BREAK=false: ${err.stderr}`);
             }
         }
         
     } catch (error) {
-        tl.setResult(tl.TaskResult.Failed, error.message);
+        const err = error as { message?: string }
+        tl.setResult(tl.TaskResult.Failed, err.message || 'Unknown error occurred');
     }
 }
 
