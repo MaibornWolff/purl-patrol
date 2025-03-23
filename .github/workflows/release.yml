@@ -61,3 +61,6 @@ jobs:
           tags: |
             ghcr.io/maibornwolff/purl-patrol:latest
             ghcr.io/maibornwolff/purl-patrol:${{ needs.semantic-release.outputs.RELEASE_VERSION }}
+      - name: request
+        run: echo "Please publish the action. Afterwards manually start the "Test published GitHub Action" workflow"
+
