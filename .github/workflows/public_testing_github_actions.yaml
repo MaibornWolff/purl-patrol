@@ -12,10 +12,8 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    environment: 'publish-action-to-github-marketplace', "Publish GitHubAction"
+    environment: 'publish-action-to-github-marketplace'
     steps:
-     - name: info for approval
-       run: echo "publish GitHub action to Marketplace in order to continue"
 
      - name: Checkout code
        uses: actions/checkout@v4
