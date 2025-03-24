@@ -20,7 +20,7 @@ jobs:
      - uses: trstringer/manual-approval@v1
        with:
          secret: ${{github.TOKEN}}
-         approvers: /
+         approvers: purl-patrol
          issue-title: "Please publish the new Version of the GitHub Action in the Marketplace"
 
      - uses: MaibornWolff/purl-patrol@v1.0.1
