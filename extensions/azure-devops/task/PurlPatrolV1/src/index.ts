@@ -16,6 +16,8 @@ async function run() {
         let sbomPath = tl.getInput('SBOMPATH', true) || "";
         // let sbomPath = './test_data/secobserve.cdx.json';
         let licensePolicyPath = tl.getInput('LICENSEPOLICYPATH', false);
+        // let licensePolicyPath = './test_data/mw_license_policy.json';
+
         let breakOnNonCompliance = tl.getInput('BREAK', false);
         
         sbomPath = path.resolve(sbomPath);
@@ -44,8 +46,8 @@ async function run() {
         if (typeof licensePolicyPath !== "undefined"){
             const licenseDir = path.dirname(licensePolicyPath);
             const licenseFile = path.basename(licensePolicyPath);
-            docker.arg([`--env LICENSE_POLICY_PATH="${path.join(workingDir, licenseDirDocker, licenseFile)}"`]);
-            docker.arg([`--volume ${licenseDir}:${path.join(workingDir, licenseDirDocker)}`]);
+            docker.arg(["--env", `LICENSE_POLICY_PATH=${path.join(workingDir, licenseDirDocker, licenseFile)}`]);
+            docker.arg(["--volume", `${licenseDir}:${path.join(workingDir, licenseDirDocker)}`]);
         } 
         docker.arg([`ghcr.io/maibornwolff/purl-patrol:latest`])
         
