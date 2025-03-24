@@ -12,7 +12,6 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-
     steps:
      - name: Checkout code
        uses: actions/checkout@v4
@@ -20,10 +19,20 @@ jobs:
      - uses: trstringer/manual-approval@v1
        with:
          secret: ${{github.TOKEN}}
-         approvers: teams/compliance
+         approvers: frankafreyer
          issue-title: "Please publish the new Version of the GitHub Action in the Marketplace"
 
      - uses: MaibornWolff/purl-patrol@v1.0.1
        with:
          SBOM_PATH: ${{env.SBOM_PATH}}
          LICENSE_POLICY_PATH: ${{env.LICENSE_POLICY_PATH}}
+
+  tests-without-action:
+    runs-on: ubuntu-latest
+    environment: 'publishing-action'
+    needs: tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+
