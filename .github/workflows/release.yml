@@ -62,4 +62,9 @@ jobs:
             ghcr.io/maibornwolff/purl-patrol:latest
             ghcr.io/maibornwolff/purl-patrol:${{ needs.semantic-release.outputs.RELEASE_VERSION }}
 
+  call-github-action:
+    needs: delivery
+    uses: ./.github/workflows/public_testing_github_actions.yaml
+
+
 
