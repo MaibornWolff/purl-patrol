@@ -1,0 +1,108 @@
+name: Publish Azure DevOps Extension
+
+on:
+  push:
+    branches:
+      - feat/azure-extension
+  workflow_dispatch:
+    
+
+jobs:
+  run_and_publish_unit_tests:
+    runs-on: ubuntu-latest
+    env:
+      PUBLISHER_ID: ${{ secrets.PUBLISHER_ID }}
+      EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+      EXTENSION_NAME: ${{ secrets.EXTENSION_NAME }}
+      SERVICE_CONNECTION: ${{ secrets.SERVICE_CONNECTION }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/Jod'
+      - name: Install TFX CLI
+        run: npm install -g tfx-cli
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./extensions/azure-devops/task/PurlPatrolV1 
+
+      - name: Test
+        run: npm run test
+        working-directory: ./extensions/azure-devops/task/PurlPatrolV1 
+        
+      - name: Publish test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: '**/ResultsFile.xml'
+
+  package_extension_and_publish_build_artifacts:
+    runs-on: ubuntu-latest
+    needs: run_and_publish_unit_tests
+    env:
+      PUBLISHER_ID: ${{ secrets.PUBLISHER_ID }}
+      EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+      EXTENSION_NAME: ${{ secrets.EXTENSION_NAME }}
+      SERVICE_CONNECTION: ${{ secrets.SERVICE_CONNECTION }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install TFX CLI
+        run: npm install -g tfx-cli
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/Jod'
+      
+      - name: Compile Javascript
+        run: |
+          cd ./extensions/azure-devops/task/PurlPatrolV1 
+          npm run build
+
+      - name: Query Azure DevOps Extension Version
+        run: |
+          tfx extension show --publisher $PUBLISHER_ID --extension-id $EXTENSION_ID --json > extension.json
+          EXTENSION_VERSION=$(jq -r '.versions[0].version' extension.json)
+          PATCH_VERSION=$(echo $EXTENSION_VERSION | awk -F. '{print $1"."$2"."$3+1}')
+          echo "EXTENSION_VERSION=$PATCH_VERSION" >> $GITHUB_ENV
+
+      - name: Package Azure DevOps Extension
+        run: |
+          tfx extension create --root ./ --publisher $PUBLISHER_ID --extension-id $EXTENSION_ID --extension-name $EXTENSION_NAME --version ${{ env.EXTENSION_VERSION }} --update-tasks-version true --update-tasks-version-type patch --extension-visibility private --extension-pricing free
+
+      - name: Copy Files to Artifact Staging Directory
+        run: cp **/*.vsix $GITHUB_WORKSPACE
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: $GITHUB_WORKSPACE/*.vsix
+
+  download_build_artifacts_and_publish_the_extension:
+    runs-on: ubuntu-latest
+    needs: package_extension_and_publish_build_artifacts
+    env:
+      PUBLISHER_ID: ${{ secrets.PUBLISHER_ID }}
+      EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+      EXTENSION_NAME: ${{ secrets.EXTENSION_NAME }}
+      SERVICE_CONNECTION: ${{ secrets.SERVICE_CONNECTION }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install TFX CLI
+        run: npm install -g tfx-cli
+
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+          path: $GITHUB_WORKSPACE
+
+      - name: Publish Azure DevOps Extension
+        run: |
+          tfx extension publish --vsix $GITHUB_WORKSPACE/*.vsix --publisher $PUBLISHER_ID --extension-id $EXTENSION_ID --extension-name $EXTENSION_NAME --manifest-globs vss-extension.json --share-with PURL-patrol --token
