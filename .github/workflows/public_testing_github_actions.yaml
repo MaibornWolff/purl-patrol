@@ -17,6 +17,12 @@ jobs:
      - name: Checkout code
        uses: actions/checkout@v4
 
+     - uses: trstringer/manual-approval@v1
+       with:
+         secret: ${{github.TOKEN}}
+         approvers: frankafreyer, MaibornWolff
+         issue-title: "Please publish the new Version of the GitHub Action in the Marketplace"
+
      - uses: MaibornWolff/purl-patrol@v1.0.1
        with:
          SBOM_PATH: ${{env.SBOM_PATH}}
