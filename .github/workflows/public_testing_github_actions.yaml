@@ -3,7 +3,7 @@ run-name: test
 env:
   SBOM_PATH: "./tests/files/sbom_secObserve.cdx.json"
   LICENSE_POLICY_PATH: "./tools/license_policy.json/mw_license_policy.json"
-  APPROVAL_ARTIFACT_PATH: "./tests/files/approval_information.md"
+  APPROVAL_ARTIFACT_PATH: "./tests/files/approval_information.txt"
 on:
   workflow_call:
   push:
