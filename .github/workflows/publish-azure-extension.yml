@@ -64,7 +64,7 @@ jobs:
         working-directory: ./extensions/azure-devops
         run: |
           tfx extension create --root ./ --manifest-globs vss-extension.json \
-          --override '{"version": {"Major": {{ env.MAJOR }}, "Minor": {{ env.MINOR }}, "Patch": {{ env.PATCH }}}}' \
+          --override '{"version": {"Major": ${{ env.MAJOR }}, "Minor": ${{ env.MINOR }}, "Patch": ${{ env.PATCH }}}}' \
           --share-with PURL-patrol
   
       - name: Copy Files to Artifact Staging Directory
