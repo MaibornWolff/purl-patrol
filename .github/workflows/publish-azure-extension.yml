@@ -97,8 +97,8 @@ jobs:
           path: $GITHUB_WORKSPACE
 
       - name: debug
-        run: ls -la
-         
+        run: ls -la ${{ github.workspace }}
+
       - name: Publish Azure DevOps Extension
         run: |
           tfx extension publish --vsix ${{ github.workspace }}/*.vsix --token $PAT
