@@ -2,7 +2,11 @@
     "manifestVersion": 1,
     "id": "purl-patrol",
     "publisher": "PURL-Patrol",
-    "version": "1.0.0",
+    "version": {
+      "Major": 1, 
+      "Minor": 0,
+      "Patch": 0
+    },
     "name": "Purl Patrol",
     "description": "An Azure DevOps extension for enhancing and checking the licenses of SBOMs against a policy.",
     "tags": ["SBOM", "policy", "PURL", "evaluation", "license"],
