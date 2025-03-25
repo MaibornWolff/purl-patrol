@@ -10,6 +10,12 @@ on:
       - feat/github-action-release
 
 jobs:
+  required:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish information
+        run: echo "Please publish the GitHub Action to the Marketplace before continuing"
+
   tests:
     runs-on: ubuntu-latest
     environment: 'publish-action-to-github-marketplace'
