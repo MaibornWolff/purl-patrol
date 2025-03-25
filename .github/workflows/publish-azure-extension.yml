@@ -94,10 +94,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: packaged-extension
-          path: $GITHUB_WORKSPACE
-
-      - name: debug
-        run: ls -la ${{ github.workspace }}
 
       - name: Publish Azure DevOps Extension
         run: |
