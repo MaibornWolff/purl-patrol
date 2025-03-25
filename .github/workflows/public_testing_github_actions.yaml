@@ -3,6 +3,7 @@ run-name: test
 env:
   SBOM_PATH: "./tests/files/sbom_secObserve.cdx.json"
   LICENSE_POLICY_PATH: "./tools/license_policy.json/mw_license_policy.json"
+  APPROVAL_ARTIFACT_PATH: "./tests/files/approval_information.md"
 on:
   workflow_call:
   push:
@@ -15,6 +16,11 @@ jobs:
     steps:
       - name: approval information
         run: echo "Please publish the GitHub Action to the Marketplace before continuing"
+      - name: Upload approval information
+        uses: actions/upload-artifact@v4
+        with:
+          name: approval-artifact
+          path: ${{ env.APPROVAL_ARTIFACT_PATH }}
 
   tests:
     runs-on: ubuntu-latest
