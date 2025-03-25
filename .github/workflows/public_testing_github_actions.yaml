@@ -27,6 +27,3 @@ jobs:
        with:
          SBOM_PATH: ${{env.SBOM_PATH}}
          LICENSE_POLICY_PATH: ${{env.LICENSE_POLICY_PATH}}
-
-
-
