@@ -68,13 +68,17 @@ jobs:
           --share-with PURL-patrol
   
       - name: Copy Files to Artifact Staging Directory
-        run: cp ./extensions/azure-devops/*.vsix $GITHUB_WORKSPACE
+        run: |
+          ls -la ./extensions/azure-devops
+          cp ./extensions/azure-devops/*.vsix $GITHUB_WORKSPACE
+          ls -la $GITHUB_WORKSPACE
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: packaged-extension
           path: $GITHUB_WORKSPACE/*.vsix
+          if-no-files-found: 'error'
 
   download_build_artifacts_and_publish_the_extension:
     runs-on: ubuntu-latest
