@@ -1,3 +1,0 @@
-                                                                                                                  Approval information
-
-                                                                                                                  In order to continue, please publish the GitHub Action to the GitHub Marketplace and afterward approve deployment.
