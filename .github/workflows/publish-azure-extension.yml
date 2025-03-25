@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-      
+        uses: actions/checkout@v4
+        
       - uses: actions/setup-node@v4
         with:
           node-version: 'lts/Jod'
@@ -29,10 +29,11 @@ jobs:
         working-directory: ./extensions/azure-devops/task/PurlPatrolV1 
         
       - name: Publish test results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: './extensions/azure-devops/task/PurlPatrolV1/test-result.txt'
+          if-no-files-found: 'error'
 
   package_extension_and_publish_build_artifacts:
     runs-on: ubuntu-latest
@@ -43,7 +44,8 @@ jobs:
       PATCH: 1
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 'lts/Jod'
@@ -69,7 +71,7 @@ jobs:
         run: cp **/*.vsix $GITHUB_WORKSPACE
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: packaged-extension
           path: $GITHUB_WORKSPACE/*.vsix
@@ -88,7 +90,7 @@ jobs:
         run: npm install -g tfx-cli
       
       - name: Download Build Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: packaged-extension
           path: $GITHUB_WORKSPACE
