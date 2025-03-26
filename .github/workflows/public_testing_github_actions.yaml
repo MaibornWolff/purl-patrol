@@ -18,11 +18,19 @@ jobs:
     environment: 'publish-action-to-github-marketplace'
     needs: required
     steps:
+      - name: get action tag
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: maibornwolff/purl-patrol
+          releases-only: true
+        id: tag
 
-     - name: Checkout code
-       uses: actions/checkout@v4
+      - name: check tag
+        run: echo ${{ steps.tag.outputs.tag}}
 
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-     - uses: MaibornWolff/purl-patrol@vlatest
-       with:
-         SBOM_PATH: ${{env.SBOM_PATH}}
+      - uses: MaibornWolff/purl-patrol@v1.0.1
+        with:
+          SBOM_PATH: ${{env.SBOM_PATH}}
