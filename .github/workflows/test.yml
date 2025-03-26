@@ -16,6 +16,7 @@ jobs:
         id: "set_version"
         run: echo "´RELEASE_VERSION==1.0.1" >> "$GITHUB_OUTPUT"
   test2:
+    runs-on: ubuntu-latest
     needs: test
     steps:
       - run: echo RELEASE_VERSION [${{needs.test.outputs.RELEASE_VERSION}}]
