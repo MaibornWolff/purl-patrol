@@ -31,6 +31,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # automatically created by GH action
         run: npx semantic-release   # npx is included in npm -> Ubuntu
 
+
   delivery:
     runs-on: ubuntu-latest
     permissions:
@@ -69,3 +70,7 @@ jobs:
           MESSAGE: ${{ github.event.client_payload.message }}
         run: |
           echo $MESSAGE
+
+  call-github-action:
+    needs: delivery
+    uses: ./.github/workflows/publish-azure-extension.yml

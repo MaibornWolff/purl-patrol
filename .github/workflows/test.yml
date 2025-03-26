@@ -1,0 +1,12 @@
+name: test
+on:
+  push:
+    branches:
+      - feat/azure-extension
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo tag
+        run: echo ${{ needs.semantic-release.outputs.RELEASE_VERSION }}

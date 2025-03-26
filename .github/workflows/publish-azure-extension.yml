@@ -1,6 +1,7 @@
 name: Publish Azure DevOps Extension
 
 on:
+  workflow_call:
   push:
     branches:
       - feat/azure-extension
@@ -39,9 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: run_and_publish_tests
     env:
-      MAJOR: 1
-      MINOR: 0
-      PATCH: 1
+      RELEASE_VERSION: ${{ needs.semantic-release.outputs.RELEASE_VERSION }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
