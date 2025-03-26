@@ -1,5 +1,5 @@
 import {parse} from "node:querystring";
 
-const releaseVersion = parse(process.env["RELEASE_VERSION"]);
+const releaseVersion = process.env.RELEASE_VERSION;
 
 console.log(releaseVersion)
