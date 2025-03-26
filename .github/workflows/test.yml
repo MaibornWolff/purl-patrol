@@ -20,3 +20,11 @@ jobs:
     needs: test
     steps:
       - run: echo RELEASE_VERSION ${{needs.test.outputs.RELEASE_VERSION}}
+
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: test for ts
+        run: |
+          tsc ./.github/workflows/test.ts 
+          node ./.github/workflows/test.js
