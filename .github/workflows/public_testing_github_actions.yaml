@@ -4,9 +4,8 @@ env:
   SBOM_PATH: "./tests/files/sbom_secObserve.cdx.json"
 
 on:
-  workflow_call:
-    push:
-      branches: [ github-action-release ]
+  push:
+    branches: [ github-action-release ]
 
 jobs:
   required:
