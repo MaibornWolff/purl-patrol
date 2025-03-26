@@ -6,7 +6,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     outputs:
-      RELEASE_VERSION: ${{steps.set_output.outputs.RELEASE_VERSION}}
+      RELEASE_VERSION: ${{steps.set_version.outputs.RELEASE_VERSION}}
     steps:
       - name: Set the release version manually
         id: set_version
