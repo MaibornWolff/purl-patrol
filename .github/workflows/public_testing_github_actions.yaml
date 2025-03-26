@@ -23,6 +23,6 @@ jobs:
        uses: actions/checkout@v4
 
 
-     - uses: MaibornWolff/purl-patrol@v1.0.1
+     - uses: MaibornWolff/purl-patrol@vlatest
        with:
          SBOM_PATH: ${{env.SBOM_PATH}}
