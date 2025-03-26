@@ -14,4 +14,4 @@ jobs:
     steps:
       - name: Set the release version manually
         id: set_version
-        run: echo "´RELEASE_VERSIO==1.0.1" >> "$GITHUB_OUTPUT"
+        run: echo "´RELEASE_VERSION==1.0.1" >> "$GITHUB_OUTPUT"
