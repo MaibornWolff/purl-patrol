@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Use release version
-        run: echo ${{ needs.call-workflow.outputs.RELEASE_VERSION}}
+        run: echo ${{ outputs.RELEASE_VERSION }}
