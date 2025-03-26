@@ -13,4 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - run: $RELEASE_VERSION
+      - run: ${{RELEASE_VERSION}}

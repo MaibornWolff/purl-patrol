@@ -12,4 +12,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Use release version
-        run: echo $RELEASE_VERSION
+        run: echo ${{RELEASE_VERSION}}
