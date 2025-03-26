@@ -2,11 +2,9 @@ name: Test published GitHub Action
 run-name: test
 env:
   SBOM_PATH: "./tests/files/sbom_secObserve.cdx.json"
-
 on:
-  workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ feat/github-action-release ]
 
 jobs:
   required:
