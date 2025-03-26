@@ -70,7 +70,3 @@ jobs:
           MESSAGE: ${{ github.event.client_payload.message }}
         run: |
           echo $MESSAGE
-
-  call-github-action:
-    needs: delivery
-    uses: ./.github/workflows/publish-azure-extension.yml

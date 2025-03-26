@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bd02b4e-9c17-4230-81a1-b38bc5fc308d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.github/workflows/test2.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.github/workflows/publish-azure-extension.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/publish-azure-extension.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.github/workflows/release.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/release.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/test.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +86,7 @@
       <workItem from="1742305687417" duration="8591000" />
       <workItem from="1742472089820" duration="32179000" />
       <workItem from="1742905554444" duration="2035000" />
-      <workItem from="1742910516472" duration="14639000" />
+      <workItem from="1742910516472" duration="17876000" />
     </task>
     <servers />
   </component>

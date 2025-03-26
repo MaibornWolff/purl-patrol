@@ -1,11 +1,8 @@
 name: Publish Azure DevOps Extension
 
 on:
-  workflow_call:
   push:
-    branches:
-      - feat/azure-extension
-  workflow_dispatch:
+    branches: [main]
 
 jobs:
   run_and_publish_tests:
