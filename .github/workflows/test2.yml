@@ -5,7 +5,7 @@ on:
 jobs:
   call-workflow:
     name: call other workflow
-    uses: ./.github/workflows/test.yml@main
+    uses: ./.github/workflows/test.yml
 
   use-version:
     needs: call-workflow
