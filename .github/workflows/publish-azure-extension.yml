@@ -98,3 +98,14 @@ jobs:
       - name: Publish Azure DevOps Extension
         run: |
           tfx extension publish --vsix ${{ github.workspace }}/*.vsix --token $PAT
+
+  test_the_published_extension:
+      runs-on: ubuntu-latest
+      needs: download_build_artifacts_and_publish_the_extension
+      steps:
+        - uses: Azure/pipelines@v1
+          with:
+            azure-devops-project-url: 'https://dev.azure.com/PURL-patrol/'
+            azure-pipeline-name: 'PURL-patrol'
+            azure-devops-token: '${{secrets.AZURE_DEVOPS_TOKEN}}'
+
