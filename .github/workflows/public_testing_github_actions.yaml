@@ -19,17 +19,27 @@ jobs:
     needs: required
     steps:
       - name: get action tag
-        uses: actions-ecosystem/action-get-latest-tag@v1
-        id: get-latest-tag
-        if: ${{ steps.release-label.outputs.level != null }}
+        uses: oprypin/find-latest-tag@v1
         with:
-          semver_only: true
+          repository: maibornwolff/purl-patrol
+          releases-only: true
+        id: tag
 
       - name: check tag
-        run: echo ${{ steps.release-label.outputs.level}}
+        run: echo ${{ steps.tag.outputs.tag}}
 
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set output
+        id: vars
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+
+      - name: Check output
+        env:
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: |
+          echo $RELEASE_VERSION
 
       - uses: MaibornWolff/purl-patrol@v1.0.1
         with:
