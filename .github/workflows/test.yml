@@ -19,4 +19,4 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - run: echo RELEASE_VERSION [${{needs.test.outputs.RELEASE_VERSION}}]
+      - run: echo RELEASE_VERSION ${{needs.test.outputs.RELEASE_VERSION}}
