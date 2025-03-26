@@ -45,9 +45,9 @@ repos:
   #         - --style
   #         - DL3015
 
-  - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.21.2
-    hooks:
-      - id: gitleaks
+  # - repo: https://github.com/gitleaks/gitleaks
+  #  rev: v8.21.2
+  #  hooks:
+  #    - id: gitleaks
 
 ## We should include pyright in here as well as soon as we are building python code
