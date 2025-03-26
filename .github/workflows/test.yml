@@ -1,6 +1,10 @@
 name: test
 on:
   workflow_call:
+    outputs:
+      workflow_output:
+        description: "job output"
+        value: ${{ jobs.test.outputs.RELEASE_VERSION}}
 
 jobs:
   test:
@@ -10,4 +14,4 @@ jobs:
     steps:
       - name: Set the release version manually
         id: set_version
-        run: echo "::set-output name=RELEASE_VERSIO::1.0.1" >> "$GITHUB_OUTPUT"
+        run: echo "´RELEASE_VERSIO==1.0.1" >> "$GITHUB_OUTPUT"
