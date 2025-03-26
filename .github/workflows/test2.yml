@@ -4,7 +4,7 @@ on:
       - feat/azure-extension
 jobs:
   call-workflow:
-   - uses: ./.github/workflows/test.yml
+    uses: ./.github/workflows/test.yml
 
   use-version:
     needs: call-workflow

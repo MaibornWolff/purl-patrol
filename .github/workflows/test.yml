@@ -1,7 +1,8 @@
 name: test
 on:
   workflow_call:
-
+    outputs:
+      ${{RELEASE_VERSION}}
 jobs:
   test:
     runs-on: ubuntu-latest
