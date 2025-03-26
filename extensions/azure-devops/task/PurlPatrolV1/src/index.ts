@@ -36,7 +36,9 @@ async function run() {
         if (typeof breakOnNonCompliance === "undefined") {
             breakOnNonCompliance = "true";
         }
-        
+
+        const releaseVersion = process.env.RELEASE_VERSION;
+
         // TODO: Pin Version of Dockerfile
         const docker = tl.tool('docker');
         docker.arg(["run", "--workdir", `${path.join(workingDir, sbomDirDocker)}`, "--rm"]);
@@ -49,7 +51,7 @@ async function run() {
             docker.arg(["--env", `LICENSE_POLICY_PATH=${path.join(workingDir, licenseDirDocker, licenseFile)}`]);
             docker.arg(["--volume", `${licenseDir}:${path.join(workingDir, licenseDirDocker)}`]);
         } 
-        docker.arg([`ghcr.io/maibornwolff/purl-patrol:latest`])
+        docker.arg([`ghcr.io/maibornwolff/purl-patrol:releaseVersion`])
         
         // Run purl-patrol Docker image
         console.log('Running PURL Patrol...');
