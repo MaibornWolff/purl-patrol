@@ -1,10 +1,7 @@
 name: test
 on:
   workflow_call:
-    outputs:
-      release_version:
-        description: "version of release"
-        value: ${{RELEASE_VERSION}}
+
 jobs:
   test:
     runs-on: ubuntu-latest
