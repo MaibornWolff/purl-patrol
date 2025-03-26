@@ -13,7 +13,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feat/76-JSON-schema-and-validation" />
+        <entry key="$PROJECT_DIR$" value="feat/github-action-release" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,7 +50,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/github-action-release&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/azure-extension&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -78,7 +78,7 @@
       <workItem from="1742305687417" duration="8591000" />
       <workItem from="1742472089820" duration="32179000" />
       <workItem from="1742905554444" duration="2035000" />
-      <workItem from="1742910516472" duration="10569000" />
+      <workItem from="1742910516472" duration="19986000" />
     </task>
     <servers />
   </component>
