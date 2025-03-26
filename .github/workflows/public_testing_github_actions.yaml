@@ -19,14 +19,14 @@ jobs:
     needs: required
     steps:
       - name: get action tag
-        uses: oprypin/find-latest-tag@v1
+        uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+        if: ${{ steps.release-label.outputs.level != null }}
         with:
-          repository: maibornwolff/purl-patrol
-          releases-only: true
-        id: tag
+          semver_only: true
 
       - name: check tag
-        run: echo ${{ steps.tag.outputs.tag}}
+        run: echo ${{ steps.release-label.outputs.level}}
 
       - name: Checkout code
         uses: actions/checkout@v4
