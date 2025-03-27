@@ -115,6 +115,15 @@ jobs:
       runs-on: ubuntu-latest
       needs: download_build_artifacts_and_publish_the_extension
       steps:
+        - name: Login to Azure cli 
+          uses: azure/login@v2
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+            allow-no-subscriptions: true
+
+        - name: Get token from service principal to publish extension
+          run: TOKEN=$(az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798 --query "accessToken" -o tsv)
+        
         - uses: Azure/pipelines@v1
           with:
             azure-devops-project-url: 'https://dev.azure.com/PURL-patrol/'
