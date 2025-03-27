@@ -1,0 +1,32 @@
+name: "Test GitHub Action"
+run-name: test-github-action
+env:
+  SBOM_FILE: "./tests/files/sbom_sec_observe.cdx.json"
+on:
+  workflow_call:
+
+jobs:
+  analyze-sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Test Action Default License
+        uses: ./
+        id: analyze-sbom-default-license
+        with:
+          SBOM_PATH: ${{ env.SBOM_FILE }}
+          BREAK_ENABLED: false
+      - name: Test Action External License
+        uses: ./
+        id: analyze-sbom-external-license
+        with:
+          SBOM_PATH: ${{ env.SBOM_FILE }}
+          BREAK_ENABLED: false
+          LICENSE_POLICY_PATH: "/github/workspace/tests/files/mw_license_policy.json"
+      - name: Upload SBOM evaluation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluated_sbom
+          path: ${{ github.workspace }}/evaluated_sbom.csv
+          if-no-files-found: error
