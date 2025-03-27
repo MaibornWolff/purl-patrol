@@ -46,6 +46,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: update docker image tag
+        run: sed -i -e 's/latest/${{ env.RELEASE_VERSION }}/' ./extensions/azure-devops/task/PurlPatrolV1/src/index.ts
+
       - uses: actions/setup-node@v4
         with:
           node-version: 'lts/Jod'
@@ -55,9 +58,6 @@ jobs:
       
       - name: Install TFX CLI
         run: npm install -g tfx-cli
-
-      - name: update docker image tag
-        run: sed -i -e 's/latest/${{ env.RELEASE_VERSION }}/' ./extensions/azure-devops/task/PurlPatrolV1/src/index.ts
 
       - name: Compile Javascript
         run: npm run build
