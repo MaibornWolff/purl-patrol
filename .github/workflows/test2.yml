@@ -12,7 +12,7 @@ jobs:
     needs: call-workflow
     runs-on: ubuntu-latest
     env:
-      RELEASE_VERSION = ${{ needs.call-workflow.outputs.workflow_output }}
+      RELEASE_VERSION: ${{ needs.call-workflow.outputs.workflow_output }}
     steps:
       - name: checkout code
         uses: actions/checkout@v4
