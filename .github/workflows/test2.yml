@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - feat/azure-extension
+jobs:
+  call-workflow:
+    name: call other workflow
+    uses: ./.github/workflows/test.yml
+
+  use-version:
+    needs: call-workflow
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_VERSION = ${{ needs.call-workflow.outputs.workflow_output }}
+    steps:
+      - name: Use release version
+        run: echo ${{ RELEASE_VERSION }}
+      - name: update docker image tag
+        run: sed -i -e 's/latest/${{ RELEASE_VERSION }}/' ./.github/workflows/test.ts

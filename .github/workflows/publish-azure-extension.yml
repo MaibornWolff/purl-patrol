@@ -56,6 +56,9 @@ jobs:
       - name: Install TFX CLI
         run: npm install -g tfx-cli
 
+      - name: update docker image tag
+        run: sed -i -e 's/latest/${{ RELEASE_VERSION }}/' ./extensions/azure-devops/task/PurlPatrolV1/src/index.ts
+
       - name: Compile Javascript
         run: npm run build
         working-directory: ./extensions/azure-devops/task/PurlPatrolV1 
