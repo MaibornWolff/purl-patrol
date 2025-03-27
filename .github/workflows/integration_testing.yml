@@ -13,18 +13,16 @@ jobs:
     permissions:
       contents: write
       packages: write
-    env:
-      BRANCH_NAME: ${GITHUB_REF_NAME//\//-}
-      COMMIT_HASH: $(echo $GITHUB_SHA | cut -c1-7)
+
     steps:
       - name: Checkout Github Repo
         uses: actions/checkout@v4
 
       - name: Get Branch Name
-        run: echo ${{ env.BRANCH_NAME }}
+        run: echo "BRANCH_NAME=${GITHUB_REF_NAME//\//-}" >> $GITHUB_ENV
 
       - name: Get Commit Hash
-        run: echo ${{ env.COMMIT_HASH }}
+        run: echo "COMMIT_HASH=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
