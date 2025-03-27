@@ -11,10 +11,14 @@ jobs:
     needs: call-workflow
     runs-on: ubuntu-latest
     steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
       - name: Use release version
         run: echo ${{ needs.call-workflow.outputs.workflow_output }}
+
       - name: update docker image tag
-        run: sed -i -e 's/latest/${{ needs.call-workflow.outputs.workflow_output }}/' /Users/franka.freyer/WebstormProjects/purl-patrol/.github/workflows/test.ts
+        run: sed -i -e 's/latest/${{ needs.call-workflow.outputs.workflow_output }}/' ./.github/workflows/test.ts
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
