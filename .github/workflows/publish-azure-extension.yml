@@ -57,7 +57,7 @@ jobs:
         run: npm install -g tfx-cli
 
       - name: update docker image tag
-        run: sed -i -e 's/latest/${{ RELEASE_VERSION }}/' ./extensions/azure-devops/task/PurlPatrolV1/src/index.ts
+        run: sed -i -e 's/latest/${{ env.RELEASE_VERSION }}/' ./extensions/azure-devops/task/PurlPatrolV1/src/index.ts
 
       - name: Compile Javascript
         run: npm run build
@@ -67,7 +67,7 @@ jobs:
         working-directory: ./extensions/azure-devops
         run: |
           tfx extension create --root ./ --manifest-globs vss-extension.json \
-          --override '{"version": "${{ RELEASE_VERSION }}"}' \
+          --override '{"version": "${{ env.RELEASE_VERSION }}"}' \
           --share-with PURL-patrol
   
       - name: Copy Files to Artifact Staging Directory
