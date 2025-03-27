@@ -14,6 +14,6 @@ jobs:
       RELEASE_VERSION = ${{ needs.call-workflow.outputs.workflow_output }}
     steps:
       - name: Use release version
-        run: echo ${{ RELEASE_VERSION }}
+        run: echo ${{ env.RELEASE_VERSION }}
       - name: update docker image tag
-        run: sed -i -e 's/latest/${{ RELEASE_VERSION }}/' ./.github/workflows/test.ts
+        run: sed -i -e 's/latest/${{ env.RELEASE_VERSION }}/' ./.github/workflows/test.ts
