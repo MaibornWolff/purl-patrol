@@ -10,10 +10,20 @@ jobs:
   use-version:
     needs: call-workflow
     runs-on: ubuntu-latest
-    env:
-      RELEASE_VERSION = ${{ needs.call-workflow.outputs.workflow_output }}
     steps:
       - name: Use release version
-        run: echo ${{ env.RELEASE_VERSION }}
+        run: echo ${{ needs.call-workflow.outputs.workflow_output }}
       - name: update docker image tag
-        run: sed -i -e 's/latest/${{ env.RELEASE_VERSION }}/' ./.github/workflows/test.ts
+        run: sed -i -e 's/latest/${{ needs.call-workflow.outputs.workflow_output }}/' ./.github/workflows/test.ts
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - name: Install dependencies
+        run: npm install
+
+      - name: test for ts
+        run: |
+          tsc ./.github/workflows/test.ts 
+          node ./.github/workflows/test.js
