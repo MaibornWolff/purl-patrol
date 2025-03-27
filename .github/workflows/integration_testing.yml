@@ -24,11 +24,6 @@ jobs:
       - name: Get Commit Hash
         run: echo "COMMIT_HASH=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
 
-      - name: echo vars
-        run: |
-          echo ${{env.BRANCH_NAME}}
-          echo ${{env.COMMIT_HASH}}
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
