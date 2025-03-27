@@ -98,9 +98,18 @@ jobs:
         with:
           name: packaged-extension
 
+      - name: Login to Azure cli 
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          allow-no-subscriptions: true
+
+      - name: Get token from service principal to publish extension
+        run: TOKEN=$(az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798 --query "accessToken" -o tsv)
+
       - name: Publish Azure DevOps Extension
         run: |
-          tfx extension publish --vsix ${{ github.workspace }}/*.vsix --token $PAT
+          tfx extension publish --vsix ${{ github.workspace }}/*.vsix --auth-type pat --token $TOKEN
 
   test_the_published_extension:
       runs-on: ubuntu-latest
@@ -110,5 +119,5 @@ jobs:
           with:
             azure-devops-project-url: 'https://dev.azure.com/PURL-patrol/'
             azure-pipeline-name: 'azure-pipelines.yml'
-            azure-devops-token: '${{secrets.AZURE_DEVOPS_TOKEN}}'
+            azure-devops-token: '${{env.TOKEN}}'
 
