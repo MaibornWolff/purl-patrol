@@ -35,6 +35,12 @@ sequenceDiagram
 Create a new branch for your feature. Commit all made changes to that branch. When finished merge the feature Branch to the main branch.
 Or directly push the commit to the main branch.
 
+```
+git checkout feat/github-aciton-release
+git commit -m"feat: all your features"
+git push
+```
+
 ### 2. release.yml
 The push event triggers the release.yml workflow. Subsequently, the SemanticRelease job automatically generates a new GitHub release based on the commits made. Then a Docker image is built, which is then tagged with the current semantic version and the latest tag. This image is subsequently pushed to the Container Registry through the Delivery job.
 

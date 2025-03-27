@@ -1,7 +1,7 @@
 name: "Test GitHub Action"
 run-name: test-github-action
 env:
-  SBOM_FILE: "./tests/files/sbom_secObserve.cdx.json"
+  SBOM_FILE: "./tests/files/sbom_sec_observe.cdx.json"
 on:
   workflow_call:
 
