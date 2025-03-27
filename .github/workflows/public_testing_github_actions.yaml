@@ -3,8 +3,7 @@ run-name: test
 env:
   SBOM_PATH: "./tests/files/sbom_sec_observe.cdx.json"
 on:
-  push:
-    branches: [ main ]
+  workflow_call:
 
 jobs:
   call-github-action:

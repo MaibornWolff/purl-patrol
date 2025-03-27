@@ -1,7 +1,8 @@
 name: Release PURL Patrol
 run-name: release-purl-patrol
 on:
-  workflow_call:
+  push:
+    branches: [ main ]
 
 jobs:
   # test:
@@ -60,3 +61,7 @@ jobs:
           tags: |
             ghcr.io/maibornwolff/purl-patrol:latest
             ghcr.io/maibornwolff/purl-patrol:${{ needs.semantic-release.outputs.RELEASE_VERSION }}
+
+  call-github-action:
+    needs: delivery
+    uses: ./.github/workflows/release.yml
