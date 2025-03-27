@@ -14,7 +14,7 @@ jobs:
       - name: Use release version
         run: echo ${{ needs.call-workflow.outputs.workflow_output }}
       - name: update docker image tag
-        run: sed -i -e 's/latest/${{ needs.call-workflow.outputs.workflow_output }}/' ./.github/workflows/test.ts
+        run: sed -i -e 's/latest/${{ needs.call-workflow.outputs.workflow_output }}/' /Users/franka.freyer/WebstormProjects/purl-patrol/.github/workflows/test.ts
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
