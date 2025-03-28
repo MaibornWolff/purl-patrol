@@ -1,11 +1,6 @@
 name: Release PURL Patrol
 run-name: release-purl-patrol
 on:
-  workflow_call:
-    outputs:
-      release_version_output:
-        description: "semantic release version"
-        value: ${{jobs.semantic-release.outputs.RELEASE_VERSION}}
   push:
     branches: [main]
 
