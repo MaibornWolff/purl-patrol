@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0bd02b4e-9c17-4230-81a1-b38bc5fc308d" name="Changes" comment="feat: changed workflow call. now release.yml calls public_testing_github_actions.yaml" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feat/github-action-release" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "history": [
+    {
+      "assignee": "frankafreyer"
+    }
+  ],
+  "lastFilter": {
+    "assignee": "frankafreyer"
+  }
+}]]></component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MaibornWolff/purl-patrol.git&quot;,
+    &quot;accountId&quot;: &quot;1d8d738b-af3c-4871-b725-f767880c8f2b&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2uUacYDoU5X29v0Wi4SWrxm00j4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.test.ts.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feat/azure-extension",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "ts.external.directory.path": "/Users/franka.freyer/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.222" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0bd02b4e-9c17-4230-81a1-b38bc5fc308d" name="Changes" comment="" />
+      <created>1742305686363</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1742305686363</updated>
+      <workItem from="1742305687417" duration="8591000" />
+      <workItem from="1742472089820" duration="32179000" />
+      <workItem from="1742905554444" duration="2035000" />
+      <workItem from="1742910516472" duration="22148000" />
+      <workItem from="1742994198152" duration="19104000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat: added testing file for bash test">
+      <option name="closed" value="true" />
+      <created>1743063115047</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743063115047</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: changed call of release version">
+      <option name="closed" value="true" />
+      <created>1743063262666</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1743063262666</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: changed call of release version">
+      <option name="closed" value="true" />
+      <created>1743063415824</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1743063415824</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: changed call of release version">
+      <option name="closed" value="true" />
+      <created>1743063503155</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743063503155</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: changed path for bash command">
+      <option name="closed" value="true" />
+      <created>1743063628612</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1743063628612</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: changed storing of release version">
+      <option name="closed" value="true" />
+      <created>1743063803080</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1743063803080</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: changed storing of release version">
+      <option name="closed" value="true" />
+      <created>1743063839826</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1743063839826</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat: changed storing of release version">
+      <option name="closed" value="true" />
+      <created>1743063920845</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1743063920845</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: deleted testing files + added sed command in publish-azure-extension.yml for updating docker image tag">
+      <option name="closed" value="true" />
+      <created>1743064049870</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1743064049870</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: deleted testing files + added sed command in publish-azure-extension.yml for updating docker image tag">
+      <option name="closed" value="true" />
+      <created>1743064158556</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1743064158556</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat: added commands in release docu, created env for integration_testing.yml, renamed sbom_sec_observe.cdx.json to proceed standard">
+      <option name="closed" value="true" />
+      <created>1743067075022</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1743067075022</updated>
+    </task>
+    <task id="LOCAL-00012" summary="feat: changed env vars for integration_testing.yml, deleted comments in .pre-commit file">
+      <option name="closed" value="true" />
+      <created>1743067410274</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1743067410274</updated>
+    </task>
+    <task id="LOCAL-00013" summary="feat: testing if setting vars works">
+      <option name="closed" value="true" />
+      <created>1743079405979</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1743079405979</updated>
+    </task>
+    <task id="LOCAL-00014" summary="feat: removed tests for vars">
+      <option name="closed" value="true" />
+      <created>1743079491436</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1743079491436</updated>
+    </task>
+    <task id="LOCAL-00015" summary="feat: removed empty unit testing workflow">
+      <option name="closed" value="true" />
+      <created>1743079638229</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1743079638229</updated>
+    </task>
+    <task id="LOCAL-00016" summary="feat: changed on push in public_testing_github_actions.yaml to main branch">
+      <option name="closed" value="true" />
+      <created>1743079983704</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1743079983704</updated>
+    </task>
+    <task id="LOCAL-00017" summary="feat: changed workflow call. now release.yml calls public_testing_github_actions.yaml">
+      <option name="closed" value="true" />
+      <created>1743080673500</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1743080673500</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feat/azure-extension" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: added testing file for bash test" />
+    <MESSAGE value="feat: changed call of release version" />
+    <MESSAGE value="feat: changed path for bash command" />
+    <MESSAGE value="feat: changed storing of release version" />
+    <MESSAGE value="feat: deleted testing files + added sed command in publish-azure-extension.yml for updating docker image tag" />
+    <MESSAGE value="feat: added commands in release docu, created env for integration_testing.yml, renamed sbom_sec_observe.cdx.json to proceed standard" />
+    <MESSAGE value="feat: changed env vars for integration_testing.yml, delted comments in .pre-commit file" />
+    <MESSAGE value="feat: changed env vars for integration_testing.yml, deleted comments in .pre-commit file" />
+    <MESSAGE value="feat: testing if setting vars works" />
+    <MESSAGE value="feat: removed tests for vars" />
+    <MESSAGE value="feat: removed empty unit testing workflow" />
+    <MESSAGE value="feat: changed on push in public_testing_github_actions.yaml to main branch" />
+    <MESSAGE value="feat: changed workflow call. now release.yml calls public_testing_github_actions.yaml" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: changed workflow call. now release.yml calls public_testing_github_actions.yaml" />
+  </component>
+</project>

@@ -17,6 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
+
+      - name: checkout code
+        uses: actions/checkout@v4
+
       - run: echo RELEASE_VERSION ${{needs.test.outputs.RELEASE_VERSION}}
       - name: Execute Publish Azure DevOps Extension Workflow
         uses: ./.github/workflows/test2.yml
