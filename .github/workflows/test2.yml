@@ -5,7 +5,6 @@ on:
         required: true
 
 jobs:
-
   use-version:
     runs-on: ubuntu-latest
     env:
