@@ -13,7 +13,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           allow-no-subscriptions: true
 
-      - name: Get token from service principal to publish extensio
+      - name: Get token from service principal to test published extension
         run: |
          TOKEN=$(az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798 --query "accessToken" -o tsv)
          echo "ACCESS_TOKEN=${TOKEN}" >> $GITHUB_ENV
