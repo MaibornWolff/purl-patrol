@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - feat/azure-extension
+env:
+  RELEASE_VERSION = ${{steps.set_version.outputs.RELEASE_VERSION}}
 
 jobs:
   test:
@@ -22,6 +24,7 @@ jobs:
         uses: actions/checkout@v4
 
       - run: echo RELEASE_VERSION ${{needs.test.outputs.RELEASE_VERSION}}
+
       - name: Execute Publish Azure DevOps Extension Workflow
         uses: ./.github/workflows/test2.yml
         with:
