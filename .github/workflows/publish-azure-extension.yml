@@ -125,7 +125,7 @@ jobs:
             allow-no-subscriptions: true
 
         - name: Get token from service principal to publish extension
-          run: TOKEN=$(az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798 --query "accessToken" -o tsv)
+          run: echo "TOKEN=$(az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798 --query "accessToken" -o tsv)" >> $GITHUB_ENV
 
         - uses: Azure/pipelines@v1
           with:
