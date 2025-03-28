@@ -20,6 +20,6 @@ jobs:
 
       - uses: Azure/pipelines@v1
         with:
-          azure-devops-project-url: 'https://dev.azure.com/PURL-patrol/purl-patrol/purl-patrol-pipeline-test'
+          azure-devops-project-url: 'https://dev.azure.com/PURL-patrol/purl-patrol/'
           azure-pipeline-name: 'azure-pipelines.yml'
           azure-devops-token: '${{env.ACCESS_TOKEN}}'
