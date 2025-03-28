@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - feat/azure-extension
-env:
-  RELEASE_VERSION = ${{steps.set_version.outputs.RELEASE_VERSION}}
 
 jobs:
   test:
