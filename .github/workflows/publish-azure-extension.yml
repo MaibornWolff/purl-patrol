@@ -133,4 +133,4 @@ jobs:
           with:
             azure-devops-project-url: 'https://dev.azure.com/PURL-patrol/'
             azure-pipeline-name: 'azure-pipelines.yml'
-            azure-devops-token: '${{env.TOKEN}}'
+            azure-devops-token: '${{env.ACCESS_TOKEN}}'
