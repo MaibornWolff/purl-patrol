@@ -74,3 +74,9 @@ jobs:
           MESSAGE: ${{ github.event.client_payload.message }}
         run: |
           echo $MESSAGE
+
+  calling-publish-azure-extension-workflow:
+    needs: delivery
+    uses: ./.github/workflows/publish-azure-extension.yml
+    with:
+      release_version: ${{needs.semantic-release.outputs.RELEASE_VERISON}}
