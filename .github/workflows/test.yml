@@ -24,7 +24,7 @@ jobs:
       - run: echo RELEASE_VERSION ${{needs.test.outputs.RELEASE_VERSION}}
 
   calling-other-workflow:
-    - needs: test
-      uses: ./.github/workflows/test2.yml
-      with:
-        release_version: ${{ steps.set_version.outputs.RELEASE_VERION }}
+    needs: test
+    uses: ./.github/workflows/test2.yml
+    with:
+      release_version: ${{ steps.set_version.outputs.RELEASE_VERION }}
