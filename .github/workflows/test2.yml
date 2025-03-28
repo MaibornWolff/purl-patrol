@@ -3,6 +3,7 @@ on:
     inputs:
       release_version:
         required: true
+        type: string
 
 jobs:
   use-version:
