@@ -8,8 +8,8 @@ jobs:
   check-policy:
     runs-on: ubuntu-latest
     env:
-      SBOM_PATH: "./testing/license-policy-sbom-secobserve.json"
-      LICENSE_POLICY_PATH: "./testing/mw-policy.json"
+      SBOM_PATH: "./testing/sec-observe-sbom.cdx.json"
+      LICENSE_POLICY_PATH: "./testing/license-policy-sbom-secobserve.json"
     steps:
       - name: checkout code
         uses: actions/checkout@v4
@@ -17,5 +17,5 @@ jobs:
       - name: try exported secObserve policy
         uses: MaibornWolff/purl-patrol@main
         with:
-          SBOM_PATH: ${{ env. SBOM_PATH}}
+          SBOM_PATH: ${{ env.SBOM_PATH }}
           LICENSE_POLICY_PATH: ${{ env.LICENSE_POLICY_PATH }}
