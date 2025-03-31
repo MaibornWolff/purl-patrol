@@ -1,0 +1,21 @@
+name: testing policy from secObserve
+on:
+  push:
+    branches:
+      - feat/SBOM-creation
+
+jobs:
+  check-policy:
+    runs-on: ubuntu-latest
+    env:
+      SBOM_PATH: "./testing/license-policy-sbom-secobserve.json"
+      LICENSE_POLICY_PATH: "./testing/mw-policy.json"
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: try exported secObserve policy
+        uses: MaibornWolff/purl-patrol@v1
+        with:
+          SBOM_PATH: ${{ env. SBOM_PATH}}
+          LICENSE_POLICY_PATH: ${{ env.LICENSE_POLICY_PATH }}
