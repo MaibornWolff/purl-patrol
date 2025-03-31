@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: try exported secObserve policy
-        uses: MaibornWolff/purl-patrol@v1
+        uses: MaibornWolff/purl-patrol@main
         with:
           SBOM_PATH: ${{ env. SBOM_PATH}}
           LICENSE_POLICY_PATH: ${{ env.LICENSE_POLICY_PATH }}
