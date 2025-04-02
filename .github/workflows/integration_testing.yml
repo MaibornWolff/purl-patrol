@@ -18,6 +18,9 @@ jobs:
       - name: Checkout Github Repo
         uses: actions/checkout@v4
 
+      - name: Unit tests license-policy-check
+        run: cd tools/license-policy-check/testing && pytest test_check_usage_policy.py -q && cd ../../..
+
       - name: Get Branch Name
         run: echo "BRANCH_NAME=${GITHUB_REF_NAME//\//-}" >> $GITHUB_ENV
 
