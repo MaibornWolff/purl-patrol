@@ -2,7 +2,7 @@ name: Release PURL Patrol
 run-name: release-purl-patrol
 on:
   push:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   # test:
@@ -62,10 +62,6 @@ jobs:
             ghcr.io/maibornwolff/purl-patrol:latest
             ghcr.io/maibornwolff/purl-patrol:${{ needs.semantic-release.outputs.RELEASE_VERSION }}
 
-
-      - name: Release Github Action
-        uses: actions/checkout@v4
-      - env:
-          MESSAGE: ${{ github.event.client_payload.message }}
-        run: |
-          echo $MESSAGE
+  call-github-action:
+    needs: delivery
+    uses: ./.github/workflows/release.yml

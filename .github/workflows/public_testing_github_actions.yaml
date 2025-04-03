@@ -1,0 +1,29 @@
+name: Test published GitHub Action
+run-name: test
+env:
+  SBOM_PATH: "./tests/files/sbom_sec_observe.cdx.json"
+on:
+  workflow_call:
+
+jobs:
+  call-github-action:
+    uses: ./.github/workflows/release.yml
+
+  required:
+    runs-on: ubuntu-latest
+    needs: call-github-action
+    steps:
+      - name: approval information
+        run: echo "Please publish the GitHub Action to the GitHub Marketplace before continuing"
+
+  tests:
+    runs-on: ubuntu-latest
+    environment: 'publish-action-to-github-marketplace'
+    needs: required
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: MaibornWolff/purl-patrol@main
+        with:
+          SBOM_PATH: ${{env.SBOM_PATH}}
