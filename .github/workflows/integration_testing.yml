@@ -30,6 +30,7 @@ jobs:
           echo PATH=$PATH >> $GITHUB_ENV
           python -m pip install --upgrade pip
           pip install pytest
+          pip install tabulate
 
       - name: Unit tests license-policy-check
         run: cd tools/license-policy-check/testing && pytest test_check_usage_policy.py -q && cd ../../..
