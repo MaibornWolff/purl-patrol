@@ -8,6 +8,11 @@ jobs:
   testing:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Github Repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
