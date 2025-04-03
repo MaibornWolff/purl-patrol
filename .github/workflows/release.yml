@@ -63,12 +63,9 @@ jobs:
             ghcr.io/maibornwolff/purl-patrol:latest
             ghcr.io/maibornwolff/purl-patrol:${{ needs.semantic-release.outputs.RELEASE_VERSION }}
 
-      - name: Release Github Action
-        uses: actions/checkout@v4
-      - env:
-          MESSAGE: ${{ github.event.client_payload.message }}
-        run: |
-          echo $MESSAGE
+  call-github-action:
+    needs: delivery
+    uses: ./.github/workflows/public_testing_github_actions.yaml
 
   calling-publish-azure-extension-workflow:
     needs: delivery

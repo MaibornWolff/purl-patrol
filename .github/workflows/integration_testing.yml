@@ -1,0 +1,62 @@
+name: Build and Test Dockerfile on Feature Branch
+run-name: build-and-test
+on:
+  push:
+    branches-ignore:
+      - main
+      - docs/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build-image
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout Github Repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create venv and install pytest
+        run: |
+          python -m venv .venv
+          . .venv/bin/activate
+          echo PATH=$PATH >> $GITHUB_ENV
+          python -m pip install --upgrade pip
+          pip install pytest
+          pip install tabulate
+
+      - name: Unit tests license-policy-check
+        run: cd tools/license-policy-check/testing && pytest test_check_usage_policy.py -q && cd ../../..
+
+      - name: Get Branch Name
+        run: echo "BRANCH_NAME=${GITHUB_REF_NAME//\//-}" >> $GITHUB_ENV
+
+      - name: Get Commit Hash
+        run: echo "COMMIT_HASH=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            "ghcr.io/maibornwolff/purl-patrol:${{ env.BRANCH_NAME }}-${{ env.COMMIT_HASH }}"
+
+  call-github-action:
+    needs: build
+    uses: ./.github/workflows/integration_testing_github_action.yml

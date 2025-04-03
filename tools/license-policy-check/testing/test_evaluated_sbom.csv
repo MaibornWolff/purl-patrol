@@ -1,0 +1,5 @@
+usage-policy,license-type,license,resource-name,bom-ref,bom-location
+allow,id,Apache-2.0,cyclonedx-bom,cyclonedx-bom==5.1.2,components
+deny,name,License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+),chardet,chardet==5.2.0,components
+needs-review,name,License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0),fqdn,fqdn==1.5.1,components
+UNDEFINED,name,declared license of 'uri-template',uri-template,uri-template==1.3.0,components
