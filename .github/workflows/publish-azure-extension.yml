@@ -1,0 +1,136 @@
+name: Publish Azure DevOps Extension
+
+on:
+  workflow_call:
+    inputs:
+      release_version:
+        required: true
+        type: string
+
+jobs:
+  call-release-workflow:
+    name: call release workflow
+    uses: ./.github/workflows/release.yml
+
+  run_and_publish_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/Jod'
+
+      - name: Install TFX CLI
+        run: npm install -g tfx-cli
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./extensions/azure-devops/task/PurlPatrolV1
+
+      - name: Test
+        run: npm run test
+        working-directory: ./extensions/azure-devops/task/PurlPatrolV1
+
+      - name: Publish test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: './extensions/azure-devops/task/PurlPatrolV1/test-result.txt'
+          if-no-files-found: 'error'
+
+  package_extension_and_publish_build_artifacts:
+    runs-on: ubuntu-latest
+    needs: [run_and_publish_tests, call-release-workflow]
+    env:
+      RELEASE_VERSION: ${{ inputs.release_version_output }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: update docker image tag
+        run: sed -i -e 's/latest/${{ env.RELEASE_VERSION }}/' ./extensions/azure-devops/task/PurlPatrolV1/src/index.ts
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/Jod'
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./extensions/azure-devops/task/PurlPatrolV1
+
+      - name: Install TFX CLI
+        run: npm install -g tfx-cli
+
+      - name: Compile Javascript
+        run: npm run build
+        working-directory: ./extensions/azure-devops/task/PurlPatrolV1
+
+      - name: Create Azure DevOps Extension vsix
+        working-directory: ./extensions/azure-devops
+        run: |
+          tfx extension create --root ./ --manifest-globs vss-extension.json \
+          --override '{"version": "${{ env.RELEASE_VERSION }}"}' \
+          --share-with PURL-patrol
+
+      - name: Copy Files to Artifact Staging Directory
+        run: cp ./extensions/azure-devops/*.vsix $GITHUB_WORKSPACE
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: packaged-extension
+          path: "${{ github.workspace }}/*.vsix"
+          if-no-files-found: 'error'
+
+  download_build_artifacts_and_publish_the_extension:
+    runs-on: ubuntu-latest
+    needs: package_extension_and_publish_build_artifacts
+    env:
+      PAT: ${{ secrets.AZURE_PAT }}
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/Jod'
+
+      - name: Install TFX CLI
+        run: npm install -g tfx-cli
+
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: packaged-extension
+
+      - name: Login to Azure cli
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          allow-no-subscriptions: true
+
+      - name: Get token from service principal to publish extension
+        run: TOKEN=$(az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798 --query "accessToken" -o tsv)
+
+      - name: Publish Azure DevOps Extension
+        run: |
+          tfx extension publish --vsix ${{ github.workspace }}/*.vsix --auth-type pat --token $TOKEN
+
+  test_the_published_extension:
+      runs-on: ubuntu-latest
+      needs: download_build_artifacts_and_publish_the_extension
+      steps:
+        - name: Login to Azure cli
+          uses: azure/login@v2
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+            allow-no-subscriptions: true
+
+        - name: Get token from service principal to test published Extension
+          run: |
+           TOKEN=$(az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798 --query "accessToken" -o tsv)
+           echo "ACCESS_TOKEN=${TOKEN}" >> $GITHUB_ENV
+
+        - uses: Azure/pipelines@v1
+          with:
+            azure-devops-project-url: 'https://dev.azure.com/PURL-patrol/purl-patrol'
+            azure-pipeline-name: 'purl-patrol-pipeline-test'
+            azure-devops-token: '${{env.ACCESS_TOKEN}}'

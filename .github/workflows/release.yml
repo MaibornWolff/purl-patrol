@@ -2,7 +2,7 @@ name: Release PURL Patrol
 run-name: release-purl-patrol
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   # test:
@@ -30,6 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # automatically created by GH action
         run: npx semantic-release   # npx is included in npm -> Ubuntu
+
 
   delivery:
     runs-on: ubuntu-latest
@@ -65,3 +66,9 @@ jobs:
   call-github-action:
     needs: delivery
     uses: ./.github/workflows/public_testing_github_actions.yaml
+
+  calling-publish-azure-extension-workflow:
+    needs: delivery
+    uses: ./.github/workflows/publish-azure-extension.yml
+    with:
+      release_version: ${{needs.semantic-release.outputs.RELEASE_VERISON}}
