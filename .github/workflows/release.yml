@@ -64,4 +64,4 @@ jobs:
 
   call-github-action:
     needs: delivery
-    uses: ./.github/workflows/release.yml
+    uses: ./.github/workflows/public_testing_github_actions.yaml
