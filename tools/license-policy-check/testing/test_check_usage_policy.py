@@ -57,12 +57,25 @@ class TestCheckUsagePolicy(unittest.TestCase):
         assert e.value.code == 0
 
     @patch("sys.stdout", new_callable=StringIO)
+    def test_allowed(self, mock_stdout):
+        with pytest.raises(SystemExit) as e:
+            main("test_evaluated_sbom.csv", False)
+        output = mock_stdout.getvalue()
+        assert output.find("allow") == -1
+        assert e.value.code == 0
+
+    @patch("sys.stdout", new_callable=StringIO)
     def test_non_compliant_licenses(self, mock_output):
         with pytest.raises(SystemExit) as e:
             main("test_evaluated_sbom.csv", False)
         output = mock_output.getvalue()
         assert output == test_evaluated_sbom_non_compliant_licenses
         assert e.value.code == 0
+
+    def test_file_not_found(self):
+        with pytest.raises(SystemExit) as e:
+            main("non_existing_file.csv", False)
+        assert e.value.code == 1
 
     def test_non_compliant_licenses_pipeline_break(self):
         with pytest.raises(SystemExit) as e:
