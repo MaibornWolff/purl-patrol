@@ -37,4 +37,9 @@ jobs:
           curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
           sh install-scout.sh
           docker scout sbom ghcr.io/maibornwolff/purl-patrol:1.6.0 --format cyclonedx -o sbom.cdx.json
-          oras attach ghcr.io/maibornwolff/purl-patrol:1.6.0 sbom.cdx.json --artifact-type docker/sbom
+          oras attach ghcr.io/maibornwolff/purl-patrol:1.6.0 sbom.cdx.json --artifact-type sbom/cyclonedx
+
+      - uses: MaibornWolff/purl-patrol@main
+        with:
+          SBOM_PATH: sbom.cdx.json
+          BREAK_ENABLED: 'false'
