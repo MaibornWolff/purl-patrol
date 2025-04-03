@@ -22,7 +22,7 @@ tmr.registerMock('path', {
     join: (...paths: string[]) => path.join(...paths),
 });
 
-// we need to mock the external requests to the task runner of Azure 
+// we need to mock the external requests to the task runner of Azure
 const a: ma.TaskLibAnswers = {
     checkPath: {
         [sbomDir]: true,
@@ -39,5 +39,3 @@ const a: ma.TaskLibAnswers = {
 
 tmr.setAnswers(a);
 tmr.run();
-
-

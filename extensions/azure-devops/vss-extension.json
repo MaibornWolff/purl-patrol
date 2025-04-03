@@ -39,7 +39,7 @@
   "files": [
     {
       "path": "task"
-    }, 
+    },
     {
       "path": "img",
       "addressable": true
@@ -59,7 +59,7 @@
   "branding": {
       "color": "#00baf9",
       "theme": "dark"
-  }, 
+  },
   "repository": {
       "type": "git",
       "uri": "https://github.com/MaibornWolff/purl-patrol"
