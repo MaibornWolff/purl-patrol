@@ -18,6 +18,19 @@ jobs:
       - name: Checkout Github Repo
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create venv and install pytest
+        run: |
+          python -m venv .venv
+          . .venv/bin/activate
+          echo PATH=$PATH >> $GITHUB_ENV
+          python -m pip install --upgrade pip
+          pip install pytest
+
       - name: Unit tests license-policy-check
         run: cd tools/license-policy-check/testing && pytest test_check_usage_policy.py -q && cd ../../..
 
