@@ -1,8 +1,6 @@
 name: testing sbom creation
 on:
-  push:
-    branches:
-      - feat/SBOM-creation
+  workflow_call:
 
 jobs:
   testing:
