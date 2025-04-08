@@ -31,6 +31,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # automatically created by GH action
         run: npx semantic-release   # npx is included in npm -> Ubuntu
 
+
   delivery:
     runs-on: ubuntu-latest
     permissions:
@@ -74,9 +75,12 @@ jobs:
           name: sbom
           path: sbom.cdx.json
 
-      - name: Release Github Action
-        uses: actions/checkout@v4
-      - env:
-          MESSAGE: ${{ github.event.client_payload.message }}
-        run: |
-          echo $MESSAGE
+  call-github-action:
+    needs: delivery
+    uses: ./.github/workflows/public_testing_github_actions.yaml
+
+  calling-publish-azure-extension-workflow:
+    needs: delivery
+    uses: ./.github/workflows/publish-azure-extension.yml
+    with:
+      release_version: ${{needs.semantic-release.outputs.RELEASE_VERISON}}
