@@ -2,7 +2,7 @@
 
 When you generate a SBOM using tools like `sbom-utility` or `cdxgen`, some packages might have unknown
 license information such as:
-- No IDs but a name, which has no further rules. Some packages therefore have values that can't be 
+- No IDs but a name, which has no further rules. Some packages therefore have values that can't be
 further processed. Better way is to enrich the SBOM beforehand.
 
 **Example**
@@ -30,3 +30,4 @@ OR
 can be found [here (bottom of page)](https://spdx.org/licenses/).
 - Some components have a wrong or unclear license definition.
 - Can't filter which packages are included in the scan. For example, we can't exclude apk packages.
+- We only support CycloneDX SBOMs, because SBOMs in the SPDX format are not supported by sbom-utility.
