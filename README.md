@@ -5,6 +5,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4ba)](CODE_OF_CONDUCT.md)
 
 PURL Patrol is a tool designed to consume Software Bill of Materials (SBOMs), extract software licenses, and check them against a predefined license policy. It helps you ensure that your project's dependencies comply with your organization's licensing requirements, preventing legal and security risks.
+This is done by using the [sbom-utility](https://github.com/CycloneDX/sbom-utility) tool.
 
 ## Key Features
 
@@ -15,11 +16,11 @@ PURL Patrol is a tool designed to consume Software Bill of Materials (SBOMs), ex
 🔄 **CI/CD Integration:** Seamlessly integrates with GitHub Actions for automated license compliance checks in your CI/CD pipeline - *and more to follow ;)*
 
 ## Usage
-
+In order for PURL Patrol to work the SBOM needs to be a CycloneDX SBOM!
 ### GitHub Actions
 
 ```yaml
-- uses: MaibornWolff/purl-patrol@v1
+- uses: MaibornWolff/purl-patrol@v1.6 # or MaibornWolff/purl-patrol@main to always use the latest version!
   with:
     SBOM_PATH: 'path/to/your/sbom.json' # Required: The path to your SBOM in the repository
     LICENSE_POLICY_PATH: 'path/to/your/license_policy.json' # Optional: The path to your license policy
@@ -32,11 +33,11 @@ PURL Patrol is a tool designed to consume Software Bill of Materials (SBOMs), ex
 
 ## Input Parameters
 
-| Parameter           | Description                                                                                                                   | Required | Default Value          |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------- |
-| `SBOM_PATH`         | The path to your Software Bill of Materials (SBOM) file within the docker container.                                             | Yes      | *None*                 |
-| `LICENSE_POLICY_PATH` | The path to the license policy file within the docker container. This file defines the allowed and disallowed licenses.                                  | No       | `/sbom/mw_license_policy.json` |
-| `BREAK_ENABLED`     |  A boolean flag indicating whether the pipeline should fail (exit with an error) if any license non-compliance issues are found. | No       | `true`                |
+| Parameter             | Description                                                                                                                     | Required | Default Value                  |
+|-----------------------|---------------------------------------------------------------------------------------------------------------------------------|----------|--------------------------------|
+| `SBOM_PATH`           | The path to your Software Bill of Materials (SBOM) file within the docker container.                                            | Yes      | *None*                         |
+| `LICENSE_POLICY_PATH` | The path to the license policy file within the docker container. This file defines the allowed and disallowed licenses.         | No       | `/sbom/mw_license_policy.json` |
+| `BREAK_ENABLED`       | A boolean flag indicating whether the pipeline should fail (exit with an error) if any license non-compliance issues are found. | No       | `true`                         |
 
 ### License File
 
@@ -57,7 +58,7 @@ The license policy file (`LICENSE_POLICY_PATH`) should be a JSON file that defin
             "urls": [
                 ""
             ]
-        },
+        }
     ]
 }
 
