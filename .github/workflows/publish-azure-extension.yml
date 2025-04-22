@@ -8,10 +8,6 @@ on:
         type: string
 
 jobs:
-  call-release-workflow:
-    name: call release workflow
-    uses: ./.github/workflows/release.yml
-
   run_and_publish_tests:
     runs-on: ubuntu-latest
     steps:
