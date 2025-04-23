@@ -5,22 +5,38 @@ import sys
 from tabulate import tabulate
 
 
-def main(input_file, pipeline_break):
+def filterPurls(purl, ignore_list):
+    return any(
+        purl.startswith("pkg:" + package_type + "/") for package_type in ignore_list
+    )
+
+
+def main(input_file, pipeline_break, ignore_pkg_types):
     return_code = 0
     try:
         with open(input_file, "r") as file:
             reader = csv.reader(file)
             sbom_license_evaluation = list(reader)
 
+            ignore_list = ignore_pkg_types.split(",") if ignore_pkg_types else []
+            ignore_list = [x.strip() for x in ignore_list]
+
             for row in sbom_license_evaluation:
                 # remove license-type column from the sbom_license_evaluation
                 del row[1]
+                for _ in range(3, 12):
+                    del row[3]
 
             headers = sbom_license_evaluation[0]
             rows_without_header = sbom_license_evaluation[1:]
 
             non_compliant_licenses = []
             for dependency_evaluation in rows_without_header:
+                purl = dependency_evaluation[3]
+
+                if filterPurls(purl, ignore_list):
+                    continue
+
                 # usage-policy is the first column
                 usage_policy = dependency_evaluation[0]
                 # Check if the usage-policy is UNDEFINED, needs-review, or deny
@@ -53,5 +69,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("filename")
     parser.add_argument("--pipelinebreak", "-p", type=str)
+    parser.add_argument("--ignore-pkg-types", "-i", dest="ignore_pkg_types", type=str)
     args = parser.parse_args()
-    main(args.filename, args.pipelinebreak == "true")
+    main(args.filename, args.pipelinebreak == "true", args.ignore_pkg_types)
