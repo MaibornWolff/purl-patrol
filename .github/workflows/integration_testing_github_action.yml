@@ -24,6 +24,7 @@ jobs:
           SBOM_PATH: ${{ env.SBOM_FILE }}
           BREAK_ENABLED: false
           LICENSE_POLICY_PATH: "/github/workspace/tests/files/mw_license_policy.json"
+          IGNORE_PKG_TYPES: ""
       - name: Upload SBOM evaluation artifact
         uses: actions/upload-artifact@v4
         with:
