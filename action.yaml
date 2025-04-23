@@ -10,7 +10,7 @@ inputs:
   BREAK_ENABLED:
     description: 'Boolean value whether to break the pipeline in case of non-compliance.'
     required: false
-  IGNORE_PKG_TYPE:
+  IGNORE_PKG_TYPES:
     description: 'Comma-separated list of package types to be ignored'
     required: false
 
@@ -21,4 +21,4 @@ runs:
     SBOM_PATH: ${{ inputs.SBOM_PATH }}
     LICENSE_POLICY_PATH: ${{ inputs.LICENSE_POLICY_PATH }}
     BREAK_ENABLED: ${{ inputs.BREAK_ENABLED }}
-    IGNORE_PKG_TYPE: ${{ inputs.IGNORE_PKG_TYPE }}
+    IGNORE_PKG_TYPES: ${{ inputs.IGNORE_PKG_TYPES }}
