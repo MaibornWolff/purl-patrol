@@ -41,6 +41,14 @@
             "defaultValue": true,
             "required": false,
             "helpMarkDown": "true"
+        },
+        {
+            "name": "IGNOREPKGTYPES",
+            "type": "string",
+            "label": "Comma separated list of packages to be ignored during the license scanning.",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "apk, pypi"
         }
     ],
     "execution": {
