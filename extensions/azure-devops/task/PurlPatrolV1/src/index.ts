@@ -19,6 +19,7 @@ async function run() {
         // let licensePolicyPath = './test_data/mw_license_policy.json';
 
         let breakOnNonCompliance = tl.getInput('BREAK', false);
+        let ignorePkgTypes = tl.getInput('IGNOREPKGTYPES', false) || "";
 
         sbomPath = path.resolve(sbomPath);
 
@@ -43,6 +44,7 @@ async function run() {
         docker.arg(["run", "--workdir", `${path.join(workingDir, sbomDirDocker)}`, "--rm"]);
         docker.arg(["--env", `SBOM_PATH=${path.join(workingDir, sbomDirDocker, sbomFile)}`])
         docker.arg(["--env", `BREAK_ENABLED=${breakOnNonCompliance}`])
+        docker.arg(["--env", `IGNORE_PKG_TYPES=${ignorePkgTypes}`])
         docker.arg(["--volume", `${sbomDir}:${path.join(workingDir, sbomDirDocker)}`])
         if (typeof licensePolicyPath !== "undefined"){
             const licenseDir = path.dirname(licensePolicyPath);
