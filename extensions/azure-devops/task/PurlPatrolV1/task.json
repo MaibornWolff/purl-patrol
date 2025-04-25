@@ -48,7 +48,7 @@
             "label": "Comma separated list of packages to be ignored during the license scanning.",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "apk, pypi"
+            "helpMarkDown": "apk,pypi"
         }
     ],
     "execution": {
