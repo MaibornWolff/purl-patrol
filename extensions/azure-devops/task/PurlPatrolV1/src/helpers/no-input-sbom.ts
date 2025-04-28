@@ -9,6 +9,7 @@ sbomDir = "./test_data/secobserve.cdx.json";
 
 let tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
 tmr.setInput('BREAK', 'true');
+tmr.setInput('IGNOREPKGTYPES', '');
 
 // we do not want the absolute path since this is used in the volume of the docker run cmd below
 tmr.registerMock('path', {
