@@ -32,7 +32,7 @@ jobs:
           docker scout sbom ghcr.io/maibornwolff/purl-patrol:$RELEASE --format cyclonedx -o sbom.cdx.json
           oras attach ghcr.io/maibornwolff/purl-patrol:$RELEASE sbom.cdx.json --artifact-type sbom/cyclonedx
 
-      - uses: MaibornWolff/purl-patrol@101183a0a395da5bad182c3f4722925750b06ee4 # main
+      - uses: MaibornWolff/purl-patrol@a1f87b1af3982be77050d4ac043937b5571bf36d # main
         with:
           SBOM_PATH: sbom.cdx.json
           BREAK_ENABLED: 'false'
