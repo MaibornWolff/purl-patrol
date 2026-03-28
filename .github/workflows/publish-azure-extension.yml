@@ -34,7 +34,7 @@ jobs:
         working-directory: ./extensions/azure-devops/task/PurlPatrolV1
 
       - name: Publish test results
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7
         with:
           name: test-results
           path: './extensions/azure-devops/task/PurlPatrolV1/test-result.txt'
@@ -81,7 +81,7 @@ jobs:
         run: cp ./extensions/azure-devops/*.vsix $GITHUB_WORKSPACE
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7
         with:
           name: packaged-extension
           path: "${{ github.workspace }}/*.vsix"
@@ -103,7 +103,7 @@ jobs:
         run: npm install -g tfx-cli
 
       - name: Download Build Artifacts
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
           name: packaged-extension
 
