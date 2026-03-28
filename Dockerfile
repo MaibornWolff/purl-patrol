@@ -8,7 +8,7 @@ RUN echo "$BUILDPLATFORM" && wget -q \
   -O sbom-utility.tar.gz \
   && tar -xvzf sbom-utility.tar.gz
 
-FROM python:3.12-alpine
+FROM python:3.14-alpine
 RUN apk add gcompat=~1.1 --no-cache \
   && apk add sudo=~1.9 --no-cache \
   && pip3 --no-cache-dir install tabulate==0.9.0 \
