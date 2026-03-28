@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM --platform=$BUILDPLATFORM alpine:3.21 AS base
+FROM --platform=$BUILDPLATFORM alpine:3.23 AS base
 
 ENV SBOMUTILITY_VERSION "0.17.1"
 ARG TARGETARCH
