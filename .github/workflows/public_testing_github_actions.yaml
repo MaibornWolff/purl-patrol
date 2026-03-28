@@ -8,12 +8,16 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
 
@@ -29,7 +33,7 @@ jobs:
       - name: Unit tests license-policy-check
         run: cd tools/license-policy-check/testing && pytest test_check_usage_policy.py -q && cd ../../..
 
-      - uses: MaibornWolff/purl-patrol@main
+      - uses: MaibornWolff/purl-patrol@101183a0a395da5bad182c3f4722925750b06ee4 # main
         with:
           SBOM_PATH: ${{env.SBOM_PATH}}
           BREAK_ENABLED: false

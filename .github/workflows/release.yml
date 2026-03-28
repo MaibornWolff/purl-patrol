@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   # test:
 
@@ -11,16 +14,19 @@ jobs:
     # needs: [test]
     runs-on: ubuntu-latest
     name: semantic-release
+    permissions:
+      contents: write
     outputs:
       RELEASE_TAG: ${{ steps.release.outputs.RELEASE_TAG }}
       RELEASE_VERSION: ${{ steps.release.outputs.RELEASE_VERSION }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           fetch-depth: 0
+          persist-credentials: false
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "lts/*"
       - name: Install dependencies
@@ -41,20 +47,21 @@ jobs:
     needs: [semantic-release]
     steps:
       - name: Checkout Github Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           repository: ${{ github.repository }}
           ref: ${{ needs.semantic-release.outputs.RELEASE_TAG }}
+          persist-credentials: false
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
         with:
           context: .
           platforms: linux/amd64
@@ -64,23 +71,29 @@ jobs:
             ghcr.io/maibornwolff/purl-patrol:${{ needs.semantic-release.outputs.RELEASE_VERSION }}
 
       - name: Create SBOM with Docker Scout
+        env:
+          RELEASE_VERSION: ${{ needs.semantic-release.outputs.RELEASE_VERSION }}
         run: |
           curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
           sh install-scout.sh
-          docker scout sbom ghcr.io/maibornwolff/purl-patrol:${{ needs.semantic-release.outputs.RELEASE_VERSION }} --format cyclonedx -o sbom.cdx.json
+          docker scout sbom ghcr.io/maibornwolff/purl-patrol:$RELEASE_VERSION --format cyclonedx -o sbom.cdx.json
 
       - name: Upload SBOM
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: sbom
           path: sbom.cdx.json
 
   call-github-action:
     needs: delivery
+    permissions:
+      contents: read
     uses: ./.github/workflows/public_testing_github_actions.yaml
 
   calling-publish-azure-extension-workflow:
     needs: delivery
+    permissions:
+      contents: read
     uses: ./.github/workflows/publish-azure-extension.yml
     with:
       release_version: ${{needs.semantic-release.outputs.RELEASE_VERISON}}
