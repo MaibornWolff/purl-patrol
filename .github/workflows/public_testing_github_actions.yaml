@@ -33,7 +33,7 @@ jobs:
       - name: Unit tests license-policy-check
         run: cd tools/license-policy-check/testing && pytest test_check_usage_policy.py -q && cd ../../..
 
-      - uses: MaibornWolff/purl-patrol@80f58bf13d7de1e6600f938aebb3d08594ea3c25 # main
+      - uses: MaibornWolff/purl-patrol@b1b80166cc5dd57e5348cf032e2e2ff6077bca2e # main
         with:
           SBOM_PATH: ${{env.SBOM_PATH}}
           BREAK_ENABLED: false
