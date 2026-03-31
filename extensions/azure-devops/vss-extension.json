@@ -1,0 +1,67 @@
+{
+  "manifestVersion": 1,
+  "id": "purl-patrol",
+  "publisher": "PURL-Patrol",
+  "version": "1.0.0",
+  "name": "Purl Patrol",
+  "description": "An Azure DevOps extension for enhancing and checking the licenses of SBOMs against a policy.",
+  "tags": ["SBOM", "policy", "PURL", "evaluation", "license"],
+  "public": false,
+  "main": "./dist/index.js",
+  "scripts": {
+      "vscode:prepublish": "npm run build",
+      "build": "tsc"
+  },
+  "categories": ["Azure Pipelines"],
+  "content": {
+      "details": {
+          "path": "overview.md"
+      },
+      "license": {
+          "path": "LICENSE"
+      }
+  },
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "purl-patrol-task",
+      "type": "ms.vss-distributed-task.task",
+      "targets": ["ms.vss-distributed-task.tasks"],
+      "properties": {
+        "name": "task"
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "task"
+    },
+    {
+      "path": "img",
+      "addressable": true
+    }
+  ],
+  "links": {
+      "support": {
+          "uri": "https://github.com/MaibornWolff/purl-patrol/issues"
+      },
+      "repository": {
+          "uri": "https://github.com/MaibornWolff/purl-patrol"
+      }
+  },
+  "icons": {
+      "default": "img/icon.png"
+  },
+  "branding": {
+      "color": "#00baf9",
+      "theme": "dark"
+  },
+  "repository": {
+      "type": "git",
+      "uri": "https://github.com/MaibornWolff/purl-patrol"
+  }
+}

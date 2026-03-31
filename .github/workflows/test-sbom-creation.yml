@@ -1,0 +1,38 @@
+name: testing sbom creation
+on:
+  workflow_call:
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - name: Checkout Github Repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          repository: ${{ github.repository }}
+          persist-credentials: false
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: oras-project/setup-oras@22ce207df3b08e061f537244349aac6ae1d214f6 # v1
+
+      - name: Create SBOM with Docker Scout
+        run: |
+          RELEASE=$(curl -s https://api.github.com/repos/MaibornWolff/purl-patrol/releases/latest | jq -r '.tag_name' | cut -c2-)
+          curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
+          sh install-scout.sh
+          docker scout sbom ghcr.io/maibornwolff/purl-patrol:$RELEASE --format cyclonedx -o sbom.cdx.json
+          oras attach ghcr.io/maibornwolff/purl-patrol:$RELEASE sbom.cdx.json --artifact-type sbom/cyclonedx
+
+      - uses: MaibornWolff/purl-patrol@e82b9cd32178eef4b40e7074a4ca391780230df1 # main
+        with:
+          SBOM_PATH: sbom.cdx.json
+          BREAK_ENABLED: 'false'

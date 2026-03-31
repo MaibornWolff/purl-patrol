@@ -1,0 +1,69 @@
+name: Build and Test Dockerfile on Feature Branch
+run-name: build-and-test
+on:
+  push:
+    branches-ignore:
+      - main
+      - docs/**
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build-image
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout Github Repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.14"
+
+      - name: Create venv and install pytest
+        run: |
+          python -m venv .venv
+          . .venv/bin/activate
+          echo PATH=$PATH >> $GITHUB_ENV
+          python -m pip install --upgrade pip
+          pip install pytest
+          pip install tabulate
+
+      - name: Unit tests license-policy-check
+        run: cd tools/license-policy-check/testing && pytest test_check_usage_policy.py -q && cd ../../..
+
+      - name: Get Branch Name
+        run: echo "BRANCH_NAME=${GITHUB_REF_NAME//\//-}" >> $GITHUB_ENV
+
+      - name: Get Commit Hash
+        run: echo "COMMIT_HASH=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            "ghcr.io/maibornwolff/purl-patrol:${{ env.BRANCH_NAME }}-${{ env.COMMIT_HASH }}"
+
+  call-github-action:
+    needs: build
+    permissions:
+      contents: read
+    uses: ./.github/workflows/integration_testing_github_action.yml
