@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
         with:
-          node-version: "22"
+          node-version: "24"
 
       - name: Install cdxgen
         run: npm install -g @cyclonedx/cdxgen@12.1.3
