@@ -18,7 +18,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: 'lts/Jod'
 
@@ -56,7 +56,7 @@ jobs:
       - name: update docker image tag
         run: sed -i -e "s/latest/$RELEASE_VERSION/" ./extensions/azure-devops/task/PurlPatrolV1/src/index.ts
 
-      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: 'lts/Jod'
       - name: Install dependencies
@@ -95,7 +95,7 @@ jobs:
     env:
       PAT: ${{ secrets.AZURE_PAT }}
     steps:
-      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: 'lts/Jod'
 
