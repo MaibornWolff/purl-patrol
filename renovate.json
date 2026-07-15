@@ -2,5 +2,13 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "description": "Don't chase our own main SHA: every merge moves it, creating an endless stream of digest PRs",
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["MaibornWolff/purl-patrol"],
+      "enabled": false
+    }
   ]
 }

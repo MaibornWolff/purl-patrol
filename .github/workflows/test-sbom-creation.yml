@@ -10,7 +10,7 @@ jobs:
       packages: read
     steps:
       - name: Checkout Github Repo
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
           repository: ${{ github.repository }}
           persist-credentials: false
@@ -32,7 +32,7 @@ jobs:
           docker scout sbom ghcr.io/maibornwolff/purl-patrol:$RELEASE --format cyclonedx -o sbom.cdx.json
           oras attach ghcr.io/maibornwolff/purl-patrol:$RELEASE sbom.cdx.json --artifact-type sbom/cyclonedx
 
-      - uses: MaibornWolff/purl-patrol@10b1019a5b4fe5f25fd8898e8df9bab1747588b4 # main
+      - uses: MaibornWolff/purl-patrol@d6f7c24159eaf338f06be54138eee7ee51ea423b # main
         with:
           SBOM_PATH: sbom.cdx.json
           BREAK_ENABLED: 'false'
