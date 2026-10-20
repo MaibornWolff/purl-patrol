@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/MaibornWolff/purl-patrol#readme",
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/changelog": "^7.0.0",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/exec": "^7.0.3",
     "@semantic-release/github": "^12.0.0",
