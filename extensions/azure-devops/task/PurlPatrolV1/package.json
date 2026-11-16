@@ -18,7 +18,7 @@
   "license": "Apache-2.0",
   "description": "",
   "devDependencies": {
-    "@types/node": "^24.0.0",
+    "@types/node": "^26.0.0",
     "@types/q": "^1.5.8",
     "sync-request": "^6.1.0",
     "tsx": "^4.23.15",
