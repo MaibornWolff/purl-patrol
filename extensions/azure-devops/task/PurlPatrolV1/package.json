@@ -11,7 +11,7 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "pretest": "npm run build",
-    "test": "node --require ts-node/register --import tsx --test --test-concurrency=1 --test-reporter=spec --test-reporter-destination=stdout --test-reporter=spec --test-reporter-destination=test-result.txt **/*.test.ts"
+    "test": "node --import tsx --test --test-concurrency=1 --test-reporter=spec --test-reporter-destination=stdout --test-reporter=spec --test-reporter-destination=test-result.txt **/*.test.ts"
   },
   "keywords": [],
   "author": "",
@@ -21,13 +21,11 @@
     "@types/node": "^24.0.0",
     "@types/q": "^1.5.8",
     "sync-request": "^6.1.0",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.19.3",
-    "typescript": "^6.0.0"
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   },
   "dependencies": {
-    "azure-pipelines-task-lib": "^5.0.0",
-    "path": "^0.12.7",
-    "typescript": "^6.0.0"
+    "azure-pipelines-task-lib": "^5.283.2",
+    "path": "^0.12.7"
   }
 }
