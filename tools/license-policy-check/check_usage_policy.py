@@ -55,7 +55,7 @@ def main(input_file, pipeline_break, ignore_pkg_types):
     except FileNotFoundError:
         print(f"File not found: {input_file}")
         sys.exit(1)
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001 - top-level CLI catch-all
         print(f"An error occurred: {e}")
         sys.exit(1)
 
