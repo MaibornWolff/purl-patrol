@@ -30,7 +30,7 @@ const a: ma.TaskLibAnswers = {
         [licensepath]: false
     },
     exec: {
-        'docker run --workdir /workspace/sbom --rm --env SBOM_PATH=/workspace/sbom/secobserve.cdx.json --env BREAK_ENABLED=true --volume ./test_data:/workspace/sbom ghcr.io/maibornwolff/purl-patrol:latest': {
+        'docker run --workdir /workspace/sbom --rm --env SBOM_PATH=/workspace/sbom/secobserve.cdx.json --env BREAK_ENABLED=true --env IGNORE_PKG_TYPES= --volume ./test_data:/workspace/sbom ghcr.io/maibornwolff/purl-patrol:latest': {
             "code": 0,
             // "stderr": "no error",
             "stdout": "Docker ran successfully"
