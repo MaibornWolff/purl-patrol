@@ -1,7 +1,7 @@
 # Container image that runs your code
-FROM --platform=$BUILDPLATFORM alpine:3.23 AS base
+FROM --platform=$BUILDPLATFORM alpine:3.24 AS base
 
-ENV SBOMUTILITY_VERSION="0.17.1"
+ENV SBOMUTILITY_VERSION="0.19.2"
 ARG TARGETARCH
 RUN echo "$BUILDPLATFORM" && wget -q \
   "https://github.com/CycloneDX/sbom-utility/releases/download/v${SBOMUTILITY_VERSION}/sbom-utility-v${SBOMUTILITY_VERSION}-linux-${TARGETARCH}.tar.gz" \
